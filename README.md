@@ -83,6 +83,23 @@ No MySQL, no Oracle, no enterprise bullshit. Just speed and testosterone.
 
 ---
 
+## Support the Grind
+
+This plugin is **free and open source** — always has been, always will be. But if MoggedKits saved you hours of config pain, or you just want to support a solo dev grinding at 4am fueled by taurine and questionable life choices, consider grabbing it on Polymart.
+### [Get MoggedKits on Polymart](https://polymart.org)
+
+**What you get for supporting:**
+- Early access to experimental builds (hit GitHub ~1 week later)
+- Direct support via Discord — actual help, not "read the docs"
+- Priority feature requests
+- The warm fuzzy feeling of funding more 4am coding sessions
+
+Every purchase helps keep the lights on and the code flowing. No pressure though — the GitHub version will always be free. But if you're feeling generous, your support means more than you know.
+
+*Real talk: indie dev life isn't easy. Your support lets me keep making stuff instead of getting a "real j\*b."*
+
+---
+
 ## Installation
 
 ### Requirements
