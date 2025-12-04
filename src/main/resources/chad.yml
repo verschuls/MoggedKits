@@ -1,0 +1,241 @@
+# Chad Kit - The Ultimate Sigma Grindset Loadout
+cooldown: 5
+
+weight: 0
+
+guiTitle: '&c&lCHAD GRINDSET &8| &7Choose Your Destiny'
+
+display:
+  access:
+    name: '&a&lCHAD KIT &7(Available)'
+    amount: 1
+    lore:
+      - '&7The ultimate sigma male loadout'
+      - ''
+      - '&a- &7Diamond gear with max enchants'
+      - '&a- &7God apple for the grind'
+      - '&a- &7Tools for resource domination'
+      - ''
+      - '&a&lLEFT-CLICK &8» &7Claim your destiny'
+      - '&e&lRIGHT-CLICK &8» &7Preview the gains'
+    enchants: []
+    flags: ['HIDE_ATTRIBUTES']
+    material: NETHERITE_CHESTPLATE
+
+  denied:
+    name: '&c&lCHAD KIT &7(Beta Detected)'
+    amount: 1
+    lore:
+      - '&cYou lack the testosterone for this kit'
+      - ''
+      - '&7Requirements:'
+      - '&c- &7Permission: &fmoggedkits.kit.chad'
+      - '&c- &7Jawline: &f+20% definition'
+      - ''
+      - '&e&lRIGHT-CLICK &8» &7Preview anyway (cope)'
+    enchants: []
+    flags: ['HIDE_ATTRIBUTES']
+    material: NETHERITE_CHESTPLATE
+
+  cooldown:
+    name: '&e&lCHAD KIT &7(Recharging)'
+    amount: 1
+    lore:
+      - '&7Your sigma energy is regenerating'
+      - ''
+      - '&e- &7Time remaining: &f%%kit_chad_cooldown%%'
+      - ''
+      - '&7Use this time to:'
+      - '&8- &7Hit the gym'
+      - '&8- &7Study the markets'
+      - '&8- &7Increase your net worth'
+      - ''
+      - '&e&lRIGHT-CLICK &8» &7Preview while you wait'
+    enchants: []
+    flags: ['HIDE_ATTRIBUTES']
+    material: NETHERITE_CHESTPLATE
+
+armor:
+  autoEquip: true
+  helmet:
+    name: '&c&lCHAD CROWN'
+    amount: 1
+    lore:
+      - '&7Forged from pure testosterone'
+      - '&7and sigma grindset energy'
+      - ''
+      - '&c+100% &7Confidence boost'
+      - '&c+50% &7Female attraction radius'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'respiration:3'
+      - 'aqua_affinity:1'
+    flags: ['HIDE_ATTRIBUTES']
+    material: DIAMOND_HELMET
+
+  chestplate:
+    name: '&c&lPECTORAL FORTRESS'
+    amount: 1
+    lore:
+      - '&7Each breath increases your'
+      - '&7bench press by 10 pounds'
+      - ''
+      - '&c+200% &7Gym gains'
+      - '&c+75% &7Business success rate'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'thorns:2'
+    flags: ['HIDE_ATTRIBUTES']
+    material: DIAMOND_CHESTPLATE
+
+  leggings:
+    name: '&c&lQUADRICEP DOMINATORS'
+    amount: 1
+    lore:
+      - '&7Never skip leg day with these'
+      - '&7testosterone-infused leggings'
+      - ''
+      - '&c+150% &7Sprint speed (mentally)'
+      - '&c+100% &7Squat depth'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'swift_sneak:3'
+    flags: ['HIDE_ATTRIBUTES']
+    material: DIAMOND_LEGGINGS
+
+  boots:
+    name: '&c&lGRIND STEPPERS'
+    amount: 1
+    lore:
+      - '&7Every step is a step towards'
+      - '&7financial freedom and success'
+      - ''
+      - '&c+300% &7Passive income'
+      - '&c+50% &7Side hustle efficiency'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'feather_falling:4'
+      - 'depth_strider:3'
+      - 'soul_speed:3'
+    flags: ['HIDE_ATTRIBUTES']
+    material: DIAMOND_BOOTS
+
+items:
+  DIAMOND_SWORD:
+    name: '&c&lEXCALIBRUH'
+    amount: 1
+    lore:
+      - '&7The legendary blade of chads'
+      - '&7Cuts through beta energy like butter'
+      - ''
+      - '&c� &7Damage: &fYes'
+      - '&c  &7Beta Slaying: &fMaximum'
+    enchants:
+      - 'sharpness:5'
+      - 'unbreaking:3'
+      - 'looting:3'
+      - 'fire_aspect:2'
+      - 'sweeping_edge:3'
+    flags: ['HIDE_ATTRIBUTES']
+
+  DIAMOND_PICKAXE:
+    name: '&c&lRESOURCE EXTRACTOR 9000'
+    amount: 1
+    lore:
+      - '&7Mine diamonds like you mine crypto'
+      - '&724/7 passive income generator'
+      - ''
+      - '&c- &7Mining speed: &fLudicrous'
+      - '&c- &7ROI: &f+420.69%'
+    enchants:
+      - 'efficiency:5'
+      - 'unbreaking:3'
+      - 'fortune:3'
+    flags: ['HIDE_ATTRIBUTES']
+
+  DIAMOND_AXE:
+    name: '&c&lLUMBERJACKED'
+    amount: 1
+    lore:
+      - '&7Chop wood, build empire'
+      - '&7Every swing adds muscle mass'
+      - ''
+      - '&c- &7Wood collection: &fIndustrial'
+      - '&c- &7Gains per swing: &f+5 lbs'
+    enchants:
+      - 'efficiency:5'
+      - 'unbreaking:3'
+      - 'fortune:3'
+      - 'sharpness:5'
+    flags: ['HIDE_ATTRIBUTES']
+
+  BOW:
+    name: '&c&lSNIPER OF SUCCESS'
+    amount: 1
+    lore:
+      - '&7360 no-scope your goals'
+      - '&7Never miss a business opportunity'
+      - ''
+      - '&c- &7Accuracy: &fAimbot-tier'
+      - '&c- &7Goal achievement: &f100%'
+    enchants:
+      - 'power:5'
+      - 'unbreaking:3'
+      - 'flame:1'
+      - 'infinity:1'
+    flags: ['HIDE_ATTRIBUTES']
+
+  ARROW:
+    name: '&7Ammunition'
+    amount: 1
+    lore: []
+    enchants: []
+    flags: []
+
+  ENCHANTED_GOLDEN_APPLE:
+    name: '&6&lSIGMA SUSTENANCE'
+    amount: 2
+    lore:
+      - '&7Consume to activate beast mode'
+      - '&7Side effects include:'
+      - '&8" &7Increased net worth'
+      - '&8" &7Better jawline'
+      - '&8" &7Uncontrollable success'
+    enchants: []
+    flags: []
+
+  COOKED_BEEF:
+    name: '&c&lPROTEIN STACK'
+    amount: 64
+    lore:
+      - '&7100% grass-fed gains'
+      - '&7No soy detected'
+      - ''
+      - '&c- &7Protein per bite: &f50g'
+      - '&c- &7Muscle growth: &fGuaranteed'
+    enchants: []
+    flags: []
+
+  EXPERIENCE_BOTTLE:
+    name: '&a&lLIQUID KNOWLEDGE'
+    amount: 16
+    lore:
+      - '&7Distilled wisdom from successful entrepreneurs'
+      - ''
+      - '&a- &7Contains: Business strategies'
+      - '&a- &7Side effect: Instant expertise'
+    enchants: []
+    flags: []
+
+  ENDER_PEARL:
+    name: '&d&lTELEPORT TO SUCCESS'
+    amount: 16
+    lore:
+      - '&7Skip the line to greatness'
+      - '&7Quantum leap your progress'
+    enchants: []
+    flags: []
