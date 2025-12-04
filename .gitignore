@@ -1,0 +1,44 @@
+# Build
+build/
+out/
+target/
+
+# Gradle
+.gradle/
+gradle/wrapper/gradle-wrapper.jar
+
+# IDE - IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+
+# IDE - VSCode
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Runtime artifacts
+/run/
+/server/
+
+# JAR files (we build fresh)
+*.jar
+
+# Sensitive
+*.env
+credentials.json
+.claude/
+claude/

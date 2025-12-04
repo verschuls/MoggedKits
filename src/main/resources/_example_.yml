@@ -1,0 +1,170 @@
+# === MoggedKits - Kit Configuration Template ===
+# This is the base template for creating new kits
+# Copy this file and rename it to: <kitname>.yml (e.g., warrior.yml, starter.yml, chad.yml)
+# The filename without ".yml" becomes the kit identifier
+# Note: _example_.yml is a template only - it won't be loaded as an actual kit
+#
+# ⚠️ DEV NOTE TO CONFIG BETAS ⚠️
+# Oh you deleted this file thinking you're smart? LMAOOO get absolutely mogged
+# This file regenerates from resources every restart. I'm literally mewing while you're malding
+# "bUt wHy cAnT i dElEtE iT" - because you're not him, you're not that guy
+# It's a FEATURE not a bug. I'm 10 steps ahead, playing 5D chess while you're playing checkers
+# Your looksmaxing streak: 0 days. My code's jawline: IMMACULATE
+# Stop trying to delete the template and start mewing, maybe you'll understand the grindset
+# This file will outlive your entire config folder. Cope, seethe, and get mogged 💀
+
+# === GENERAL SETTINGS (SIGMA CONFIG ZONE) ===
+
+# Cooldown between kit claims (in mewing minutes)
+# 5 = Take 5 minutes mewing break between kits
+# 0 = Unlimited mogging potential (based)
+# 1440 = Touch grass for 24 hours (beta behavior)
+delay: 5
+
+# GUI weight (your kit's position in the looksmaxing hierarchy)
+# 0 = Alpha position (far left, first to mog)
+# Higher numbers = progressively more beta placement
+# Maps directly to "kit_slots" index in config.yml main menu
+# Got 5 kits? Use weights 0-4. Sequential. No gaps. This isn't your gym attendance.
+# Weight 0 goes to kit_slots[0], weight 1 to kit_slots[1], you get it
+# Skip numbers and watch ArrayIndexOutOfBoundsException mog your console
+weight: 0
+
+# GUI title when previewing this absolute unit of a kit
+# Leave empty to let the kit's raw aura speak for itself
+guiTitle: ''
+
+# === GUI DISPLAY (MOGGING MENU PRESENCE) ===
+# How your kit flexes in the main menu
+display:
+  # When player has big jawline energy (permission + no cooldown)
+  access:
+    name: ''                    # The drip name (use & for colors, be creative or stay beta)
+    amount: 1                   # Stack size (visual flex only)
+    lore: []                    # Your kit's rizz description
+    enchants: []                # Make it glow like your aura ('sharpness:5')
+    flags: []                   # Hide the cringe ('HIDE_ATTRIBUTES')
+    material: STONE            # Icon material (DIAMOND_BLOCK for chads)
+
+  # When player has negative canthal tilt (no permission)
+  denied:
+    name: ''                    # Usually something like '&cNOT HIM'
+    amount: 1
+    lore: []                    # Explain why they're not mogging yet
+    enchants: []
+    flags: []
+    material: STONE            # BARRIER is peak beta energy
+
+  # Currently in mewing recovery period (cooldown active)
+  cooldown:
+    name: ''                    # '&eMewing in progress: %kit_[kit name]_cooldown%'
+    amount: 1
+    lore: []                    # "it's a marathon, not a sprint" - looksmax.org user
+    enchants: []
+    flags: []
+    material: STONE            # CLOCK to track the mew
+
+# === ARMOR (THE DRIP CONFIGURATION) ===
+armor:
+  # true = instant drip application (equips automatically)
+  # false = manual drip management (goes to inventory)
+  # Full inventory behavior controlled by config.yml dropWhenFull
+  autoEquip: false
+
+  # Pro tip: Set material to null to skip (naked mewing technique)
+  helmet:
+    name: ''                    # Crown your dome with glory
+    amount: 1                   # Always 1 (you only have one head, beta)
+    lore: []                    # Describe your cranial supremacy
+    enchants: []                # 'protection:4' to protect the mew
+    flags: []                   # HIDE_ATTRIBUTES to hide your power level
+    material: STONE            # null for bald supremacy, DIAMOND_HELMET for kings
+
+  chestplate:
+    name: ''                    # Pectoral fortress of power
+    amount: 1
+    lore: []                    # Chest expansion lore
+    enchants: []                # Bench press enchants
+    flags: []
+    material: STONE            # NETHERITE_CHESTPLATE for maximum mogging
+
+  leggings:
+    name: ''                    # Leg day proof
+    amount: 1
+    lore: []                    # Proof you didn't skip leg day
+    enchants: []                # 'swift_sneak:3' for that grindset speed
+    flags: []
+    material: STONE            # GOLDEN_LEGGINGS if you're zesty
+
+  boots:
+    name: ''                    # The grind steppers
+    amount: 1
+    lore: []                    # Every step towards success
+    enchants: []                # 'soul_speed:3' to outrun the haters
+    flags: []
+    material: STONE            # DIAMOND_BOOTS or stay barefoot maxxing
+
+# === ITEMS (INVENTORY MOGGING LOADOUT) ===
+# Your kit's actual loot that makes betas seethe
+# Format: MATERIAL_NAME as key (use all caps or get mogged)
+# Empty kit? Use 'items: []' or 'items: {}' for the fasting arc
+items:
+  # Starter example (replace STONE with actual chad materials)
+  STONE:                        # The material (DIAMOND_SWORD for alphas)
+    name: ''                    # Item's rizz name (use & colors)
+    amount: 1                   # Stack size (64 for maximum flex)
+    lore: []                    # Item's backstory and power level
+    enchants: []                # Juice it up ('sharpness:5', 'unbreaking:3')
+    flags: []                   # Hide the normie stats ('HIDE_ATTRIBUTES')
+
+  # Pro gamer example:
+  # DIAMOND_SWORD:
+  #   name: '&c&lBETA SLAYER 9000'
+  #   amount: 1
+  #   lore:
+  #     - '&7Forged from pure testosterone'
+  #     - ''
+  #     - '&c⚔ Mogging Power: &fYes'
+  #   enchants:
+  #     - 'sharpness:5'      # Maximum violence
+  #     - 'unbreaking:3'     # Never breaks, like your grindset
+  #   flags: ['HIDE_ATTRIBUTES']  # They don't need to know
+
+# === VALID ENCHANTMENTS (1.21+) ===
+# Format: 'enchant_name:level'
+#
+# Weapons: sharpness, smite, bane_of_arthropods, knockback, fire_aspect, looting, sweeping_edge
+# Tools: efficiency, silk_touch, unbreaking, fortune
+# Armor: protection, fire_protection, feather_falling, blast_protection, projectile_protection,
+#        respiration, aqua_affinity, thorns, depth_strider, frost_walker, soul_speed, swift_sneak
+# Bow: power, punch, flame, infinity
+# Fishing: luck_of_the_sea, lure
+# Trident: loyalty, impaling, riptide, channeling
+# Crossbow: quick_charge, multishot, piercing
+# Other: mending, curse_of_binding, curse_of_vanishing
+
+# === VALID ITEM FLAGS ===
+# HIDE_ENCHANTS - Hides enchantment descriptions
+# HIDE_ATTRIBUTES - Hides attribute modifiers (attack damage, armor, etc.)
+# HIDE_UNBREAKABLE - Hides unbreakable state
+# HIDE_DESTROYS - Hides what blocks the item can destroy
+# HIDE_PLACED_ON - Hides where the item can be placed
+# HIDE_POTION_EFFECTS - Hides potion effects
+# HIDE_DYE - Hides dye color from leather armor
+# HIDE_ARMOR_TRIM - Hides armor trim details
+
+# === PERMISSIONS ===
+# Each kit requires permission: moggedkits.kit.<kitname>
+# defaultKit from config.yml is the free handout for the permless masses
+# Example: moggedkits.kit.starter, moggedkits.kit.warrior, moggedkits.kit.chad
+# Admin permission: moggedkits.admin (bypass cooldowns, mog all kits)
+
+# === GLOBAL SETTINGS (config.yml) ===
+# The following settings in config.yml affect all kits:
+#
+# dropWhenFull: Controls inventory overflow behavior
+#   - true: Extra items drop to ground when inventory is full
+#   - false: Kit claiming blocked if not enough space
+#
+# defaultKit: Name of kit that auto-regenerates if deleted
+#   - Ensures players always have access to at least one kit

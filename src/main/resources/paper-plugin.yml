@@ -1,0 +1,26 @@
+name: MoggedKits
+version: "${version}"
+main: me.verschuls.tren.MoggedKits
+loader: me.verschuls.tren.MoggedLoader
+api-version: '1.19'
+authors: [ Verschuls ]
+description: Upgrade your loadout & jawline
+website: https://verschuls.xyz
+dependencies:
+  server:
+    packetevents:
+      load: BEFORE
+      required: false
+      join-classpath: true
+permissions:
+  moggedkits.*:
+    description: "Every access/bypass to what this plugin has to offer"
+    default: op
+    children:
+      moggedkits.admin:
+        description: "Access to /moggedkits command and all kits"
+        default: op
+        children:
+          moggedkits.kit.*:
+            description: "Access to all kits"
+            default: op
