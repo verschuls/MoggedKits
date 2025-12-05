@@ -19,7 +19,7 @@
 # 5 = Take 5 minutes mewing break between kits
 # 0 = Unlimited mogging potential (based)
 # 1440 = Touch grass for 24 hours (beta behavior)
-delay: 5
+cooldown: 5
 
 # GUI weight (your kit's position in the looksmaxing hierarchy)
 # 0 = Alpha position (far left, first to mog)

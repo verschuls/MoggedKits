@@ -17,7 +17,7 @@ public class MKits {
 
     @Comment({"VIP only zone - peasants need not apply",
             "Promotes the server store because bills don't pay themselves"})
-    private String cant_access = "%prefix% &cThis kit requires a bigger jawline. &e&lGet mogged at &6&lhttps://mcpl.gg";
+    private String cant_access = "%prefix% &cThis kit requires a bigger jawline. &e&lGet mogged at our shop.";
 
     @Comment("Successfully claimed a kit - you're now 20% more chad")
     private String kit_granted = "%prefix% &aKit &e%kit% &aacquired! +15 testosterone, +20% jawline definition!";
