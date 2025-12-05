@@ -1,7 +1,6 @@
 package me.verschuls.tren.modules.kmanager;
 
 import me.verschuls.cbu.CFilter;
-import me.verschuls.cbu.CIdentifier;
 import me.verschuls.cbu.CM;
 import me.verschuls.cbu.CMI;
 import me.verschuls.tren.MoggedKits;
@@ -16,9 +15,7 @@ import me.verschuls.tren.utils.Logger;
 import me.verschuls.tren.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,14 +23,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 

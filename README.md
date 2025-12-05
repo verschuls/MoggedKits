@@ -3,7 +3,7 @@
 > The only kit plugin that guarantees +20% jawline definition and +10 confidence after every `/kit` usage.
 > Powered by pure **anabolic Java**.
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Paper](https://img.shields.io/badge/Paper-1.19+-blue.svg)](https://papermc.io/)
 [![Version](https://img.shields.io/badge/Version-1.0-green.svg)](https://github.com/Verschuls/MoggedKits)
 
@@ -86,7 +86,7 @@ No MySQL, no Oracle, no enterprise bullshit. Just speed and testosterone.
 ## Support the Grind
 
 This plugin is **free and open source** — always has been, always will be. But if MoggedKits saved you hours of config pain, or you just want to support a solo dev grinding at 4am fueled by taurine and questionable life choices, consider grabbing it on Polymart.
-### [Get MoggedKits on Polymart](https://polymart.org)
+### [Get MoggedKits on Polymart](https://polymart.org/product/8941/moggedkits)
 
 **What you get for supporting:**
 - Early access to experimental builds (hit GitHub ~1 week later)
@@ -234,6 +234,7 @@ items:
 - One-time kits
 - Kit bundles
 - Dev API
+- MySQL/MariaDB if plugin gets bigger
 
 **Want to suggest a feature?** Join the [Discord](https://dsc.verschuls.xyz)
 
@@ -286,7 +287,7 @@ Mostly yes. There could be a few bugs but most issues are fixed. Use at your own
 <details>
 <summary><b>I need help!</b></summary>
 
-Free support isn't offered due to time constraints. If you want dedicated support, consider purchasing on [Polymart](https://polymart.org). Buyers receive:
+Free support isn't offered due to time constraints. If you want dedicated support, consider purchasing on [Polymart](https://polymart.org/product/8941/moggedkits). Buyers receive:
 - Direct support via Discord
 - Early access to experimental builds (reach GitHub a week later)
 - Private features bound to you before public release

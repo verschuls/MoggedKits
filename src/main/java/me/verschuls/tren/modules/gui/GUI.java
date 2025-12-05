@@ -1,22 +1,13 @@
 package me.verschuls.tren.modules.gui;
 
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
-import de.exlll.configlib.Comment;
-import io.papermc.paper.event.player.PlayerCustomClickEvent;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.verschuls.tren.utils.TextUtils;
 import net.kyori.adventure.text.Component;
-import org.apache.commons.lang3.function.TriFunction;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;

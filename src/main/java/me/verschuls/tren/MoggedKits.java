@@ -1,8 +1,5 @@
 package me.verschuls.tren;
 
-import com.github.retrooper.packetevents.PacketEvents;
-import com.github.retrooper.packetevents.event.PacketListenerPriority;
-import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
 import me.verschuls.cbu.CM;
 import me.verschuls.tren.commands.KitCmd;
@@ -11,7 +8,6 @@ import me.verschuls.tren.commands.MoggedCmd;
 import me.verschuls.tren.config.Config;
 import me.verschuls.tren.config.Messages;
 import me.verschuls.tren.config.Redis;
-import me.verschuls.tren.modules.gui.GUI;
 import me.verschuls.tren.modules.gui.GUIManager;
 import me.verschuls.tren.modules.kmanager.KitManager;
 import me.verschuls.tren.modules.placeholder.Placeholder;
@@ -47,17 +43,10 @@ public final class MoggedKits extends JavaPlugin {
         instance = this;
         executor = new BukkitExecutor(this);
         Placeholder.get();
-        if (getServer().getPluginManager().getPlugin("packetevents") != null) {
-            Logger.info("Found PacketEvents GUI's will now use more secured option");
-            //packets = true;
-            //PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
-            //PacketEvents.getAPI().load();
-        }
     }
 
     @Override
     public void onEnable() {
-        if (packets) PacketEvents.getAPI().init();
         waiter.completeAsync(MoggedKits::getInstance, executor);
         CM.register(new Config(getDataPath(), getExecutor()));
         GUIManager.get();
@@ -78,8 +67,9 @@ public final class MoggedKits extends JavaPlugin {
         registerCommand("kit", new KitCmd());
         registerCommand("kits", new KitsCmd());
         registerCommand("moggedkits", List.of("mogged", "mk6"), new MoggedCmd());
-        if (packets) PacketEvents.getAPI().getEventManager().registerListener(GUIManager.get(), PacketListenerPriority.HIGH);
-        else getServer().getPluginManager().registerEvents(GUIManager.get(), this);
+        getServer().getPluginManager().registerEvents(GUIManager.get(), this);
+        /*if (packets) PacketEvents.getAPI().getEventManager().registerListener(GUIManager.get(), PacketListenerPriority.HIGH);
+        else */
     }
 
     public static CompletableFuture<MoggedKits> whenEnabled() {
@@ -88,7 +78,6 @@ public final class MoggedKits extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (packets) PacketEvents.getAPI().terminate();
         if (storage instanceof RedisStorage redisStorage) redisStorage.shutdown();
     }
 

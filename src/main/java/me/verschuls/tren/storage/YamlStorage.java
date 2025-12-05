@@ -1,9 +1,6 @@
 package me.verschuls.tren.storage;
 
 import de.exlll.configlib.Configuration;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.java.Log;
 import me.verschuls.cbu.CFilter;
 import me.verschuls.cbu.CIdentifier;
 import me.verschuls.cbu.CMI;
@@ -13,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;

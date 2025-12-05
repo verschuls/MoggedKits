@@ -1,8 +1,6 @@
 package me.verschuls.tren.config.kits;
 
-import de.exlll.configlib.Comment;
 import de.exlll.configlib.Configuration;
-import de.exlll.configlib.YamlConfigurations;
 import lombok.Getter;
 import lombok.Setter;
 import me.verschuls.tren.config.minecraft.YamlItemStack;

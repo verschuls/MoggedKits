@@ -4,20 +4,15 @@ import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.verschuls.cbu.CM;
 import me.verschuls.tren.MoggedKits;
-import me.verschuls.tren.config.Config;
 import me.verschuls.tren.config.Messages;
 import me.verschuls.tren.modules.kmanager.KitManager;
 import me.verschuls.tren.modules.placeholder.Placeholder;
 import me.verschuls.tren.utils.Logger;
 import me.verschuls.tren.utils.MsgUtils;
-import me.verschuls.tren.utils.TextUtils;
-import me.verschuls.tren.utils.Utils;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 

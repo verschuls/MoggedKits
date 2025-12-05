@@ -1,10 +1,7 @@
 package me.verschuls.tren.utils;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class Utils {
 

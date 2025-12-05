@@ -1,14 +1,11 @@
 package me.verschuls.tren.config;
 
 import de.exlll.configlib.Comment;
-import de.exlll.configlib.YamlConfigurationProperties;
 import lombok.Getter;
 import me.verschuls.cbu.BaseConfig;
-import me.verschuls.cbu.CM;
 import me.verschuls.cbu.Header;
 import me.verschuls.tren.config.config.YamlGUI;
 
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.concurrent.Executor;
 
