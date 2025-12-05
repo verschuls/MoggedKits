@@ -10,20 +10,13 @@ import me.verschuls.tren.modules.kmanager.KitManager;
 import me.verschuls.tren.storage.StorageHandler;
 import me.verschuls.tren.utils.Logger;
 import me.verschuls.tren.utils.MsgUtils;
-import me.verschuls.tren.utils.Utils;
-import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MoggedCmd implements BasicCommand {
 

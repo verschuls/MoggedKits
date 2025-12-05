@@ -5,7 +5,6 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.verschuls.cbu.CM;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.config.Messages;
-import me.verschuls.tren.modules.gui.GUI;
 import me.verschuls.tren.modules.kmanager.KitManager;
 import me.verschuls.tren.utils.Logger;
 import org.bukkit.entity.Player;

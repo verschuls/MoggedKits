@@ -1,10 +1,7 @@
 package me.verschuls.tren.modules.gui;
 
-import com.github.retrooper.packetevents.event.PacketListener;
 import me.verschuls.tren.MoggedKits;
-import me.verschuls.tren.modules.kmanager.KitManager;
 import me.verschuls.tren.utils.TextUtils;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,11 +11,13 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GUIManager implements Listener, PacketListener {
+public class GUIManager implements Listener {
     private static final GUIManager instance = new GUIManager();
 
     private static final Map<String, GUI> guis = new ConcurrentHashMap<>();

@@ -9,20 +9,15 @@ import me.verschuls.tren.config.minecraft.YamlItemStack;
 import me.verschuls.tren.modules.gui.GUI;
 import me.verschuls.tren.modules.gui.GUIManager;
 import me.verschuls.tren.utils.ItemUtils;
-import me.verschuls.tren.utils.TextUtils;
-import me.verschuls.tren.utils.Utils;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.jspecify.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 
 class Kit {
 
