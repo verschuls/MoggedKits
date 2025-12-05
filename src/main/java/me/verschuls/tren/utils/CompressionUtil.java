@@ -16,14 +16,6 @@ public class CompressionUtil {
     private static final LZ4Compressor compressor = factory.highCompressor();
     private static final LZ4FastDecompressor decompressor = factory.fastDecompressor();
 
-    /**
-     * Compresses a file to a base64-encoded string using LZ4 compression.
-     * The compressed data includes a 4-byte header containing the original length.
-     *
-     * @param file The file to compress
-     * @return Base64-encoded compressed data
-     * @throws IOException If file reading fails
-     */
     public static String compressFile(File file) throws IOException {
         byte[] originalBytes = Files.readAllBytes(file.toPath());
         int originalLength = originalBytes.length;
@@ -36,14 +28,6 @@ public class CompressionUtil {
         return Base64.getEncoder().encodeToString(buffer.array());
     }
 
-    /**
-     * Decompresses a base64-encoded string back to file bytes using LZ4 decompression.
-     * The compressed data must include the 4-byte header with the original length.
-     *
-     * @param compressedData Base64-encoded compressed data
-     * @return Decompressed file bytes
-     * @throws IOException If decompression fails
-     */
     public static byte[] decompressToFile(String compressedData) throws IOException {
         byte[] decoded = Base64.getDecoder().decode(compressedData);
         ByteBuffer buffer = ByteBuffer.wrap(decoded);
