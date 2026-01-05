@@ -1,9 +1,9 @@
 package me.verschuls.tren.utils;
 
 
-import me.verschuls.cbu.CM;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.config.Config;
+import me.verschuls.ylf.CM;
 
 public class Logger {
 

@@ -2,8 +2,8 @@ package me.verschuls.tren.config;
 
 import de.exlll.configlib.Comment;
 import lombok.Getter;
-import me.verschuls.cbu.BaseConfig;
-import me.verschuls.cbu.Header;
+import me.verschuls.ylf.BaseConfig;
+import me.verschuls.ylf.Header;
 
 import java.nio.file.Path;
 import java.util.concurrent.Executor;

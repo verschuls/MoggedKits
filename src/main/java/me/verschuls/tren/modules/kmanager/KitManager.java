@@ -1,8 +1,5 @@
 package me.verschuls.tren.modules.kmanager;
 
-import me.verschuls.cbu.CFilter;
-import me.verschuls.cbu.CM;
-import me.verschuls.cbu.CMI;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.config.Config;
 import me.verschuls.tren.config.config.YamlGUI;
@@ -12,7 +9,12 @@ import me.verschuls.tren.modules.gui.GUIManager;
 import me.verschuls.tren.modules.placeholder.Placeholder;
 import me.verschuls.tren.utils.ItemUtils;
 import me.verschuls.tren.utils.Logger;
+import me.verschuls.tren.utils.MsgUtils;
 import me.verschuls.tren.utils.Utils;
+import me.verschuls.ylf.CFilter;
+import me.verschuls.ylf.CIdentifier;
+import me.verschuls.ylf.CM;
+import me.verschuls.ylf.CMI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -23,10 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -47,6 +46,7 @@ public class KitManager {
     private JavaPlugin plugin;
 
     private CMI<String, YamlKit> yamlKits;
+    private Map<String, String[]> deniedActions = new HashMap<>();
 
     private String defaultKit;
 
@@ -64,7 +64,7 @@ public class KitManager {
                     createFromResource("chad.yml", kitsDir, config.getDefaultKit() + ".yml");
                     createFromResource("_example_.yml", kitsDir, "_example_.yml");
                     this.defaultKit = config.getDefaultKit();
-                    this.yamlKits = new CMI<>(plugin.getDataPath().resolve("kits"), YamlKit.class, ((file, file_) -> file.getName().replaceFirst("\\.(yml|yaml)$", "").toLowerCase()), CFilter.underScores(), MoggedKits.getExecutor());
+                    this.yamlKits = CMI.newBuilder(plugin.getDataPath().resolve("kits"), YamlKit.class, CIdentifier.fileName()).executor(MoggedKits.getExecutor()).filter(CFilter.underScores()).build();
                     this.yamlKits.onInit().thenAcceptAsync(kit -> {
                         loadKits(kit);
                         Logger.success("Kits loaded! &2" + kit.keySet());
@@ -115,13 +115,19 @@ public class KitManager {
             if (perm.getName().startsWith("moggedkits.kit."))
                 manager.removePermission(perm);
         this.kits.clear();
+        this.deniedActions.clear();
         YamlGUI.Menu yamlGUI = CM.get(Config.class).getMain_menu();
         GUI.Builder main_menu = GUI.newBuilder(yamlGUI.getTitle(), yamlGUI.getRows(), "main_menu_kits");
         for (int i = 0; i < yamlGUI.getRows()*9; i++)
             main_menu.setItem(i, ItemUtils.blankItem(Material.valueOf(yamlGUI.getFiller().toUpperCase())));
+        if (yamlGUI.getClickSound().enabled())
+            main_menu.clickSound(yamlGUI.getClickSound().sound(), yamlGUI.getClickSound().volume());
         kits.forEach((key, kit)->{
+            if (kit.getLmb_denied_behavior().isEnabled()) {
+                deniedActions.put(key, kit.getLmb_denied_behavior().getActions());
+            }
             int place = kit.getWeight();
-            this.kits.put(key, new Kit(key, kit));
+            this.kits.put(key, new Kit(key, kit, yamlGUI.getClickSound()));
             YamlKit.Display display = kit.getDisplay();
             if (!key.equalsIgnoreCase(defaultKit)) {
                 manager.addPermission(Permission.loadPermission("moggedkits.kit." + key, Map.of("default", "op")));
@@ -162,7 +168,10 @@ public class KitManager {
     }
 
     public String getCooldown(Player player, String kit) {
-        long seconds = (MoggedKits.getStorage().getCooldown(player, kit)-System.currentTimeMillis()) / 1000;
+        Long cooldown = MoggedKits.getStorage().getCooldown(player, kit)-System.currentTimeMillis();
+        if (cooldown <= 0) return "0";
+
+        long seconds = cooldown / 1000;
         long minutes = seconds / 60;
         long hours = minutes / 60;
         long days = hours / 24;
@@ -170,18 +179,35 @@ public class KitManager {
         minutes %= 60;
         hours %= 24;
 
-        StringBuilder sb = new StringBuilder();
+        List<String> parts = new ArrayList<>(4);
+        if (days > 0) parts.add(days + "d");
+        if (hours > 0) parts.add(hours + "h");
+        if (minutes > 0) parts.add(minutes + "m");
+        if (seconds > 0 || parts.isEmpty()) parts.add(seconds + "s");
 
-        if (days > 0) sb.append(days).append("d ");
-        if (hours > 0) sb.append(hours).append("h ");
-        if (minutes > 0) sb.append(minutes).append("m ");
-        if (seconds > 0 || sb.isEmpty()) sb.append(seconds).append("s");
+        return String.join(" ", parts.subList(0, Math.min(2, parts.size())));
+    }
 
-        return sb.toString().trim();
+    public boolean runDenied(Player player, String kit) {
+        if (!deniedActions.containsKey(kit)) return false;
+        for (String action : deniedActions.get(kit)) {
+            if (action.startsWith("/")) player.performCommand(action.replaceFirst("/", ""));
+            else MsgUtils.send(player, action);
+        }
+        return true;
     }
 
     public boolean hasCooldown(Player player, String kit) {
         return MoggedKits.getStorage().getCooldown(player, kit)-System.currentTimeMillis() > 0;
+    }
+
+    public void resetCooldown(Player player, String kit) {
+        if (kit.equalsIgnoreCase("ALL")) {
+            for (String kit_ : kitList())
+                MoggedKits.getStorage().putCooldown(player, kit_, 0);
+            return;
+        }
+        MoggedKits.getStorage().putCooldown(player, kit, 0);
     }
 
     public void openMainMenu(Player player) {

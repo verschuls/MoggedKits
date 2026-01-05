@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.verschuls.tren.utils.TextUtils;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -23,6 +25,7 @@ public class GUI implements Listener {
     private final Component title;
     private final String ID;
     private final Inventory inventory;
+
 
     private GUI(Builder builder) {
         this.title = TextUtils.format(builder.title);
@@ -48,10 +51,16 @@ public class GUI implements Listener {
         private final int size;
         private final Holder holder;
         private final HashMap<Integer, ItemStack> items = new HashMap<>();
+
         private Builder(String title, int rows, String id) {
             this.title = title;
             this.size = rows*9;
             this.holder = new Holder(id);
+        }
+
+        public GUI.Builder clickSound(String sound, Integer volume) {
+            this.holder.clickSound = Sound.sound(Key.key(sound), Sound.Source.UI, (volume/100F), 1f);
+            return this;
         }
 
         public GUI.Builder setItem(int slot, ItemStack stack) {
@@ -74,12 +83,16 @@ public class GUI implements Listener {
         }
     }
 
-    @AllArgsConstructor
     @Getter(AccessLevel.PACKAGE)
     static class Holder implements InventoryHolder {
         private final String id;
         private final HashMap<Integer, Function<ClickEvent, ItemStack>> functions = new HashMap<>();
         private final HashMap<Integer, BiFunction<Player, String, ItemStack>> renders = new HashMap<>();
+        private Sound clickSound;
+
+        private Holder(String id) {
+            this.id = id;
+        }
 
         @Override
         public @NotNull Inventory getInventory() {

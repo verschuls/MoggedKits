@@ -1,11 +1,11 @@
 package me.verschuls.tren.storage;
 
 import de.exlll.configlib.Configuration;
-import me.verschuls.cbu.CFilter;
-import me.verschuls.cbu.CIdentifier;
-import me.verschuls.cbu.CMI;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.utils.Logger;
+import me.verschuls.ylf.CFilter;
+import me.verschuls.ylf.CIdentifier;
+import me.verschuls.ylf.CMI;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,7 +23,7 @@ public class YamlStorage extends StorageHandler {
         super(plugin, executor);
         Logger.info("Initiating YAML storage...");
         try {
-            this.storage = new CMI<>(plugin.getDataPath().resolve("player_data"), PlayerData.class, CIdentifier.fileNameUUID(), CFilter.none(), executor);
+            this.storage = CMI.newBuilder(plugin.getDataPath().resolve("player_data"), PlayerData.class, CIdentifier.fileNameUUID()).filter(CFilter.none()).executor(executor).build();
             this.storage.onInit().thenAcceptAsync(playerData -> {
                 Logger.success("YAML storage loaded");
             }, executor).exceptionallyAsync(throwable -> {
@@ -47,14 +47,18 @@ public class YamlStorage extends StorageHandler {
     }
 
     @Override
-    public long getCooldown(Player player, String kit) {
+    public Long getCooldown(Player player, String kit) {
         UUID uuid = player.getUniqueId();
         PlayerData data = storage.get(uuid).orElseGet(()->{
             PlayerData new_data = storage.create(uuid, uuid.toString());
-            new_data.cooldown.computeIfAbsent(kit, (e)->0L);
+            new_data.cooldown.putIfAbsent(kit, 0L);
             storage.save(uuid, new_data);
             return new_data;
         });
+        if (!data.cooldown.containsKey(kit)) {
+            data.cooldown.put(kit, 0L);
+            storage.save(uuid, data);
+        }
         return data.cooldown.get(kit);
     }
 

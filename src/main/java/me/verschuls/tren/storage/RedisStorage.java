@@ -5,7 +5,6 @@ import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import lombok.Getter;
-import me.verschuls.cbu.CM;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.config.Config;
 import me.verschuls.tren.config.Messages;
@@ -14,6 +13,7 @@ import me.verschuls.tren.modules.kmanager.KitManager;
 import me.verschuls.tren.utils.CompressionUtil;
 import me.verschuls.tren.utils.Logger;
 import me.verschuls.tren.utils.Utils;
+import me.verschuls.ylf.CM;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -86,7 +86,7 @@ public class RedisStorage extends StorageHandler {
             Logger.debug("Connection established, getting async commands...");
             this.commands = connection.async();
 
-            Logger.success("Redis storage connected to {}:{}", config.getHost(), config.getPort().toString());
+            Logger.success("Redis storage connected!");
             Logger.debug("Initializing PubSub...");
             this.pubSub = new RedisPubSub(client, instanceId);
             Logger.debug("PubSub initialized, setting up reload listeners...");
@@ -226,7 +226,7 @@ public class RedisStorage extends StorageHandler {
     }
 
     @Override
-    public long getCooldown(Player player, String kit) {
+    public Long getCooldown(Player player, String kit) {
         String key = buildKey(player.getUniqueId(), kit);
         try {
             String value = commands.get(key).get(2, TimeUnit.SECONDS);

@@ -1,6 +1,7 @@
 package me.verschuls.tren.utils;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.List;
@@ -11,12 +12,12 @@ public class TextUtils {
     private static final LegacyComponentSerializer formater = LegacyComponentSerializer.builder().character('&').extractUrls().hexCharacter('#').hexColors().build();
 
     public static Component format(String text) {
-        return formater.deserialize(text);
+        return formater.deserialize(text).decoration(TextDecoration.ITALIC, false);
     }
 
     public static Component format(List<String> text) {
         AtomicReference<Component> component = new AtomicReference<>(Component.empty());
-        for (String t : text) component.set(component.get().append(formater.deserialize(t).appendNewline()));
+        for (String t : text) component.set(component.get().append(format(t).appendNewline()));
         return component.get();
     }
 

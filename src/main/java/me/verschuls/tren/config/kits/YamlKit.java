@@ -26,6 +26,34 @@ public class YamlKit {
         private YamlItemStack.Basic cooldown = YamlItemStack.basic();
     }
 
+    private StatusIcon statusIcon = new StatusIcon();
+
+    @Configuration @Getter
+    public static class StatusIcon {
+        private boolean enabled = true;
+        private int slot = 51;
+        private Type modify_type = Type.OVERRIDE_PARTS;
+        private YamlItemStack.Basic access = YamlItemStack.basic("&7", "GREEN_DYE");
+        private YamlItemStack.Basic denied = YamlItemStack.basic("&7", "RED_DYE");
+        private YamlItemStack.Basic cooldown = YamlItemStack.basic("&7", "YELLOW_DYE");
+
+        public enum Type {
+            OVERRIDE_PARTS,
+            OVERRIDE_WHOLE,
+            NONE;
+        }
+    }
+
+
+    private DeniedBehavior lmb_denied_behavior = new DeniedBehavior();
+
+    @Configuration
+    @Getter
+    public static class DeniedBehavior {
+        private boolean enabled = false;
+        private String[] actions = {};
+    }
+
     private Armor armor = new Armor();
 
     @Configuration
@@ -37,6 +65,7 @@ public class YamlKit {
         private YamlItemStack.Basic leggings = YamlItemStack.basic();
         private YamlItemStack.Basic boots = YamlItemStack.basic();
     }
+
 
     private Map<String, YamlItemStack.Section> items = new LinkedHashMap<>(Map.of("STONE", YamlItemStack.section()));
 }

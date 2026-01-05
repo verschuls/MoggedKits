@@ -2,9 +2,10 @@ package me.verschuls.tren.config;
 
 import de.exlll.configlib.Comment;
 import lombok.Getter;
-import me.verschuls.cbu.BaseConfig;
 import me.verschuls.tren.config.messages.MCommon;
 import me.verschuls.tren.config.messages.MKits;
+import me.verschuls.ylf.BaseConfig;
+import me.verschuls.ylf.CVersion;
 
 import java.nio.file.Path;
 import java.util.concurrent.Executor;
@@ -17,9 +18,8 @@ public class Messages extends BaseConfig<Messages.Data> {
     }
 
     @Getter
+    @CVersion("1.0")
     public static class Data extends BaseConfig.Data {
-        @Comment("Don't touch this unless you're on TRT and understand config versioning")
-        private Double version = 1.0;
 
         @Comment({"The prefix that mogs all other prefixes. This shows before every message.",
                   "Default: &6[&4Mogged&cKits&r&6] - because your kits need to assert dominance"})

@@ -2,13 +2,13 @@ package me.verschuls.tren.commands;
 
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import me.verschuls.cbu.CM;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.config.Messages;
 import me.verschuls.tren.modules.kmanager.KitManager;
 import me.verschuls.tren.modules.placeholder.Placeholder;
 import me.verschuls.tren.utils.Logger;
 import me.verschuls.tren.utils.MsgUtils;
+import me.verschuls.ylf.CM;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,6 +54,8 @@ public class KitCmd implements BasicCommand {
             Placeholder.get().cleanTemp(p, "kit", "dropped");
             return;
         }
+        if (manager.kitList().contains(args[0].toLowerCase()))
+            if (manager.runDenied(p, args[0])) return;
         MsgUtils.send(p, msg.getKits().getAvailable_kits());
     }
 

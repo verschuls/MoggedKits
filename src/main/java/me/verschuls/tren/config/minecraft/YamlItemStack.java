@@ -14,7 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jspecify.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -38,7 +40,7 @@ public abstract class YamlItemStack {
 
     protected String name = "";
     protected Integer amount = 1;
-    protected String[] lore = {};
+    protected List<String> lore = new ArrayList<>();
     protected String[] enchants = {};
     protected String[] flags = {};
 
@@ -65,6 +67,16 @@ public abstract class YamlItemStack {
             return format_(this.material, p);
         }
 
+        public Basic override(YamlItemStack.Basic item) {
+            if (item.material != null) material = item.material;
+            if (!item.name.isEmpty()) name = item.name;
+            if (item.amount > amount) amount = item.amount;
+            if (!item.lore.isEmpty()) lore = item.lore;
+            if (item.enchants.length > 0) enchants = item.enchants;
+            if (item.flags.length > 0) flags = item.flags;
+            return this;
+        }
+
         @Override
         public Basic clone() {
             Basic clone = new Basic();
@@ -80,11 +92,12 @@ public abstract class YamlItemStack {
 
     protected ItemStack format_(String material, @Nullable Player p) {
         if (material == null) return null;
-        ItemStack stack = new ItemStack(Material.valueOf(material));
-        stack.setAmount(amount);
+        Material mat = Material.valueOf(material);
+        ItemStack stack = new ItemStack(mat);
+        stack.setAmount(amount > mat.getMaxStackSize() ? mat.getMaxStackSize() : amount);
         ItemMeta meta = stack.getItemMeta();
         if (!name.isBlank()) meta.displayName(TextUtils.format(p == null ? name : Placeholder.get().parse(p, name)));
-        if (lore.length > 0) meta.lore(TextUtils.formatList(p == null ? lore : Placeholder.get().parse(p, lore)));
+        if (!lore.isEmpty()) meta.lore(TextUtils.formatList(p == null ? lore : Placeholder.get().parse(p, lore)));
         if (enchants.length > 0) {
             for (String enchant : enchants) {
                 String[] split = enchant.split(":");

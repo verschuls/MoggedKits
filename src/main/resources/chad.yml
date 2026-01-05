@@ -5,6 +5,7 @@ weight: 0
 
 guiTitle: '&c&lCHAD GRINDSET &8| &7Choose Your Destiny'
 
+
 display:
   access:
     name: '&a&lCHAD KIT &7(Available)'
@@ -54,6 +55,54 @@ display:
     enchants: []
     flags: ['HIDE_ATTRIBUTES']
     material: NETHERITE_CHESTPLATE
+
+statusIcon:
+  enabled: true
+  slot: 51
+  modify_type: OVERRIDE_PARTS
+
+  access:
+    name: '&aKIT &4Available'
+    amount: 1
+    lore:
+      - '&7The ultimate sigma male loadout'
+      - ''
+      - '&a- &7Diamond gear with max enchants'
+      - '&a- &7God apple for the grind'
+      - '&a- &7Tools for resource domination'
+      - ''
+      - '&a&lLEFT-CLICK &8» &7Claim your destiny'
+    enchants: []
+    flags: []
+    material: ''
+  denied:
+    name: ''
+    amount: -1
+    lore: []
+    enchants: []
+    flags: []
+    material: ''
+  cooldown:
+    name: '&7Your sigma energy is regenerating'
+    amount: -1
+    lore:
+      - ''
+      - '&7Time remaining: &f%%kit_chad_cooldown%%'
+      - ''
+      - '&7Use this time to:'
+      - '&8- &7Hit the gym'
+      - '&8- &7Study the markets'
+      - '&8- &7Increase your net worth'
+    enchants: []
+    flags: []
+    material: ''
+
+
+lmb_denied_behavior:
+  enabled: true
+  actions:
+    - '&c&lACCESS DENIED &8» &7You lack the sigma energy for this kit'
+    - '&7Unlock your potential at &e&nstore.example.com'
 
 armor:
   autoEquip: true
