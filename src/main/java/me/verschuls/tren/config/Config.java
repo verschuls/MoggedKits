@@ -2,9 +2,10 @@ package me.verschuls.tren.config;
 
 import de.exlll.configlib.Comment;
 import lombok.Getter;
-import me.verschuls.cbu.BaseConfig;
-import me.verschuls.cbu.Header;
 import me.verschuls.tren.config.config.YamlGUI;
+import me.verschuls.ylf.BaseConfig;
+import me.verschuls.ylf.CVersion;
+import me.verschuls.ylf.Header;
 
 import java.nio.file.Path;
 import java.util.concurrent.Executor;
@@ -26,14 +27,12 @@ public class Config extends BaseConfig<Config.Data> {
             
             
             """)
+    @CVersion("1.1")
     public static class Data extends BaseConfig.Data {
 
 
         @Comment("Used for reporting bugs and editing if u know what your doing")
         private boolean debug = false;
-
-        @Comment("Config version - touch this and your config gets mogged on next reload")
-        private Double version = 1.0;
 
         @Comment({
             "The unkillable kit. Delete it? It respawns. Like a cockroach but useful.",

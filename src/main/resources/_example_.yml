@@ -64,12 +64,60 @@ display:
     flags: []
     material: STONE            # CLOCK to track the mew
 
+
+# === STATUS ICON (THE BUTTON IN PREVIEW) ===
+# Shows kit status in kit preview GUI (not main menu) with one-click claiming
+# This is the clickable button players use to claim the kit from preview
+statusIcon:
+  enabled: true                 # true = show status icon, false = no claim button in preview
+  slot: 51                      # Slot position in preview GUI (0-53 for 6-row inventory)
+  modify_type: OVERRIDE_PARTS   # How status variants modify the base icon:
+                                # OVERRIDE_PARTS - only non-empty fields override (name, lore, etc.)
+                                # OVERRIDE_WHOLE - completely replaces with the variant item
+                                # NONE - no visual changes, but button still works
+
+  # Default materials: GREEN_DYE (access), RED_DYE (denied), YELLOW_DYE (cooldown)
+  # Leave fields empty/default to use built-in defaults
+  access:
+    name: ''                    # Override display name when kit is available
+    amount: 1                   # Stack size (use -1 to not override)
+    lore: []                    # Override lore lines
+    enchants: []                # Add enchant glow
+    flags: []                   # Item flags
+    material: ''                # Override material (empty = GREEN_DYE default)
+  denied:
+    name: ''                    # Override display name when no permission
+    amount: -1                  # -1 = don't override amount
+    lore: []
+    enchants: []
+    flags: []
+    material: ''                # Empty = RED_DYE default
+  cooldown:
+    name: ''                    # Override display name during cooldown
+    amount: -1
+    lore: []
+    enchants: []
+    flags: []
+    material: ''                # Empty = YELLOW_DYE default
+
+# === DENIED CLICK BEHAVIOR (REDIRECT THE BETAS) ===
+# What happens when someone LMB clicks a kit they can't access
+# Perfect for redirecting them to your store or just roasting them
+lmb_denied_behavior:
+  enabled: false                # true = actions fire on denied LMB click
+  actions:                      # List of actions to execute
+  # - '/store'                # Starts with / = runs as player command
+  # - '&cNice try beta, buy VIP at store.example.com'  # No / = sends message also links are clickable
+  # Pro tip: Combine message + command for maximum monetization
+  # Future: This might get more advanced (sound effects, titles, etc.)
+
+
 # === ARMOR (THE DRIP CONFIGURATION) ===
 armor:
-  # true = instant drip application (equips automatically)
-  # false = manual drip management (goes to inventory)
+  # true = instant drip application (equips automatically, replaces current armor)
+  # false = manual drip management (armor goes to inventory like regular items)
   # Full inventory behavior controlled by config.yml dropWhenFull
-  autoEquip: false
+  autoEquip: true                 # Default: true
 
   # Pro tip: Set material to null to skip (naked mewing technique)
   helmet:

@@ -1,7 +1,9 @@
 package me.verschuls.tren.utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Utils {
 
@@ -34,5 +36,12 @@ public class Utils {
 
     public static String cleanName(File file) {
         return file.getName().replaceFirst("\\.(yml|yaml)$", "").toLowerCase();
+    }
+
+    @SafeVarargs
+    public static<T> List<T> multiList(Collection<T> collection, T... objs) {
+        List<T> list_clone = new ArrayList<>(collection);
+        list_clone.addAll(List.of(objs));
+        return list_clone;
     }
 }

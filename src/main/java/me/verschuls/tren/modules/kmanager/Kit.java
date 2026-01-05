@@ -1,7 +1,6 @@
 package me.verschuls.tren.modules.kmanager;
 
 import lombok.Getter;
-import me.verschuls.cbu.CM;
 import me.verschuls.tren.config.Config;
 import me.verschuls.tren.config.config.YamlGUI;
 import me.verschuls.tren.config.kits.YamlKit;
@@ -9,6 +8,7 @@ import me.verschuls.tren.config.minecraft.YamlItemStack;
 import me.verschuls.tren.modules.gui.GUI;
 import me.verschuls.tren.modules.gui.GUIManager;
 import me.verschuls.tren.utils.ItemUtils;
+import me.verschuls.ylf.CM;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +27,7 @@ class Kit {
     private final List<ItemStack> items = new ArrayList<>();
     private final Armor armor;
 
-    Kit(String id, YamlKit yaml) {
+    Kit(String id, YamlKit yaml, YamlGUI.Menu.ClickSound clickSound) {
         this.name = id;
         yaml.getItems().forEach((name, kit)->{
             items.add(kit.format(name));
@@ -39,6 +39,8 @@ class Kit {
         for (int i = 0; i<=53; i++) {
             gui.setItem(i, filler);
         }
+        if (clickSound.enabled())
+            gui.clickSound(clickSound.sound(), clickSound.volume());
         for (int i = kitGUI.getItems_slot_start(); i<=kitGUI.getItems_slot_end(); i++) {
             if (i >= items.size()) gui.setItem(i, null);
             else gui.setItem(i, items.get(i));
@@ -48,16 +50,28 @@ class Kit {
         gui.setItem(as[1], armor.get(Armor.Piece.CHESTPLATE));
         gui.setItem(as[2], armor.get(Armor.Piece.LEGGINGS));
         gui.setItem(as[3], armor.get(Armor.Piece.BOOTS));
-        YamlGUI.Kit.StatusIcon status = kitGUI.getStatusIcon();
+        YamlKit.StatusIcon status = yaml.getStatusIcon();
         if (status.isEnabled()) {
             YamlKit.Display display = yaml.getDisplay();
-            YamlItemStack.Basic access = display.getAccess().clone();
-            YamlItemStack.Basic cooldown = display.getCooldown().clone();
-            YamlItemStack.Basic denied = display.getDenied().clone();
-            if (status.isChangedIcon()) {
-                access.setMaterial(status.getAccess());
-                cooldown.setMaterial(status.getCooldown());
-                denied.setMaterial(status.getDenied());
+            YamlItemStack.Basic access;
+            YamlItemStack.Basic cooldown;
+            YamlItemStack.Basic denied;
+            switch (status.getModify_type()) {
+                case OVERRIDE_PARTS -> {
+                    access = display.getAccess().clone().override(status.getAccess());
+                    cooldown = display.getCooldown().clone().override(status.getCooldown());
+                    denied = display.getDenied().clone().override(status.getDenied());
+                }
+                case OVERRIDE_WHOLE -> {
+                    access = status.getAccess();
+                    cooldown = status.getCooldown();
+                    denied = status.getDenied();
+                }
+                default -> {
+                    access = display.getAccess();
+                    cooldown = display.getCooldown();
+                    denied = display.getDenied();
+                }
             }
             gui.render(status.getSlot(), (p, id_) -> {
                 if (p.hasPermission("moggedkits.kit." + name)) {

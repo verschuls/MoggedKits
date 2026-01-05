@@ -1,7 +1,6 @@
 package me.verschuls.tren;
 
 import lombok.Getter;
-import me.verschuls.cbu.CM;
 import me.verschuls.tren.commands.KitCmd;
 import me.verschuls.tren.commands.KitsCmd;
 import me.verschuls.tren.commands.MoggedCmd;
@@ -16,6 +15,7 @@ import me.verschuls.tren.storage.StorageHandler;
 import me.verschuls.tren.storage.YamlStorage;
 import me.verschuls.tren.utils.BukkitExecutor;
 import me.verschuls.tren.utils.Logger;
+import me.verschuls.ylf.CM;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -34,9 +34,6 @@ public final class MoggedKits extends JavaPlugin {
     private static StorageHandler storage;
 
     private static final CompletableFuture<MoggedKits> waiter = new CompletableFuture<>();
-
-    @Getter
-    private static boolean packets = false;
 
     @Override
     public void onLoad() {
@@ -66,10 +63,8 @@ public final class MoggedKits extends JavaPlugin {
         }, executor);
         registerCommand("kit", new KitCmd());
         registerCommand("kits", new KitsCmd());
-        registerCommand("moggedkits", List.of("mogged", "mk6"), new MoggedCmd());
+        registerCommand("moggedkits", List.of("mks"), new MoggedCmd());
         getServer().getPluginManager().registerEvents(GUIManager.get(), this);
-        /*if (packets) PacketEvents.getAPI().getEventManager().registerListener(GUIManager.get(), PacketListenerPriority.HIGH);
-        else */
     }
 
     public static CompletableFuture<MoggedKits> whenEnabled() {

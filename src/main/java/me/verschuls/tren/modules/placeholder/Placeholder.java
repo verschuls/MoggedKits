@@ -25,7 +25,8 @@ public class Placeholder {
 
     private static final Pattern PATTERN = Pattern.compile("%([^%]+)%");
 
-    private Placeholder() {}
+    private Placeholder() {
+    }
 
     public static Placeholder get() {
         return INSTANCE;
@@ -97,7 +98,8 @@ public class Placeholder {
                 }
             }
 
-            if (replacement.get() != null) matcher.appendReplacement(builder, Matcher.quoteReplacement(replacement.get()));
+            if (replacement.get() != null)
+                matcher.appendReplacement(builder, Matcher.quoteReplacement(replacement.get()));
             else matcher.appendReplacement(builder, Matcher.quoteReplacement(matcher.group()));
         }
         matcher.appendTail(builder);
@@ -116,7 +118,7 @@ public class Placeholder {
                 try {
                     return complex.get(keyString).apply(player, args);
                 } catch (Exception e) {
-                    Logger.error("Error occurred while parsing \""+content+"\"", e);
+                    Logger.error("Error occurred while parsing \"" + content + "\"", e);
                     return "ERROR";
                 }
             }

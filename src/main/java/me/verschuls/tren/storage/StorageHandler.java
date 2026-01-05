@@ -14,7 +14,7 @@ public abstract class StorageHandler {
     }
 
     public abstract void putCooldown(Player player, String kit, int time);
-    public abstract long getCooldown(Player player, String kit);
+    public abstract Long getCooldown(Player player, String kit);
     public abstract Info getInfo();
 
 

@@ -30,8 +30,7 @@ public class GUIManager implements Listener {
     private GUIManager() {}
 
     public void register(GUI gui) {
-        if (guis.containsKey(gui.getID())) {
-            if (!users.containsKey(gui.getID())) return;
+        if (guis.containsKey(gui.getID()) && users.containsKey(gui.getID())) {
             users.get(gui.getID()).forEach(u-> {
                 if (Bukkit.getPlayer(u) != null)
                     Bukkit.getPlayer(u).closeInventory();
@@ -58,16 +57,21 @@ public class GUIManager implements Listener {
     void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player p)) return;
         if (event.getSlot() == -999) return;
-        Inventory inv = event.getInventory();
+        Inventory inv = event.getClickedInventory();
+        if (inv == null) return;
         if (inv.getHolder() == null) return;
         if (!(inv.getHolder() instanceof GUI.Holder info)) return;
         event.setCancelled(true);
         int slot = event.getSlot();
         if (!info.getFunctions().containsKey(slot)) return;
         ItemStack item = info.getFunctions().get(slot).apply(new ClickEvent(p, info.getId(), inv.getItem(slot), event.getClick()));
+        if (info.getClickSound() != null)
+            p.playSound(info.getClickSound());
         if (item != null)
             Bukkit.getScheduler().scheduleSyncDelayedTask(MoggedKits.getInstance(), ()->inv.setItem(slot, item), 1);
     }
+
+
 
     @EventHandler(ignoreCancelled = true)
     public void onInventoryClose(InventoryCloseEvent event) {

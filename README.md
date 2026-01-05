@@ -5,7 +5,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Paper](https://img.shields.io/badge/Paper-1.19+-blue.svg)](https://papermc.io/)
-[![Version](https://img.shields.io/badge/Version-1.0-green.svg)](https://github.com/Verschuls/MoggedKits)
+[![Version](https://img.shields.io/badge/Version-1.1.0-green.svg)](https://github.com/Verschuls/MoggedKits)
 
 ---
 
@@ -24,9 +24,7 @@ No bloat, no 15 dependencies, no soy code — just **clean architecture and giga
 ---
 
 ## Features
-
-### Core (v1.0) — The Full Mogging Package
-- `/kit` command with permission-based access
+ 
 - **Cooldown system** — fair timers that even natty players respect
 - **Kit GUI** — browse your loadouts in style, left-click to claim, right-click to preview
 - **Kit Preview** — see what you're getting before you commit (unlike your ex)
@@ -42,13 +40,15 @@ No bloat, no 15 dependencies, no soy code — just **clean architecture and giga
 
 ### Commands
 
-| Command | Description | Permission | Cooldown |
-|---------|-------------|------------|----------|
-| `/kits` or `/kit` | Open kit selection GUI | - | No |
-| `/kit <name>` | Claim a specific kit | `moggedkits.kit.<name>` | Yes (configurable) |
-| `/moggedkits` | Admin command | `moggedkits.admin` | No |
-| `/moggedkits reload` | Reload all configs and kits | `moggedkits.admin` | No |
-| `/moggedkits storage` | Show storage backend info | `moggedkits.admin` | No |
+| Command                     | Description                                      | Permission | Cooldown |
+|-----------------------------|--------------------------------------------------|------------|----------|
+| `/kits` or `/kit`           | Open kit selection GUI                           | - | No |
+| `/kit <name>`               | Claim a specific kit                             | `moggedkits.kit.<name>` | Yes (configurable) |
+| `/moggedkits`               | Admin command                                    | `moggedkits.admin` | No |
+| `/moggedkits reload`        | Reload all configs and kits                      | `moggedkits.admin` | No |
+| `/moggedkits storage`       | Show storage backend info                        | `moggedkits.admin` | No |
+| `/moggedkits resetcooldown` | Resets cooldown for kit or all kits for a player | `moggedkits.admin` | No |
+| `/moggedkits give`          | Give player kit without permissions              | `moggedkits.admin` | No |
 
 ### Permission Nodes
 ```yaml
@@ -228,12 +228,11 @@ items:
 - More customization options
 
 ### v1.2+ (Future) — Ascension Arc
-- Kit categories/folders
 - PlaceholderAPI integration
 - Economy support (paid kits for premium moggers)
 - One-time kits
-- Kit bundles
 - Dev API
+- H2 in favor of YamlStorage
 - MySQL/MariaDB if plugin gets bigger
 
 **Want to suggest a feature?** Join the [Discord](https://dsc.verschuls.xyz)
