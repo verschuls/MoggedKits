@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.github.verschuls.MoggedKits:api:VERSION")
+    compileOnly("com.github.verschuls.MoggedKits:VERSION")
 }
 ```
 
@@ -61,7 +61,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.github.verschuls.MoggedKits:api:VERSION'
+    compileOnly 'com.github.verschuls.MoggedKits:VERSION'
 }
 ```
 
@@ -76,15 +76,15 @@ dependencies {
 
 <dependencies>
     <dependency>
-        <groupId>com.github.verschuls.MoggedKits</groupId>
-        <artifactId>api</artifactId>
+        <groupId>com.github.verschuls</groupId>
+        <artifactId>MoggedKits</artifactId>
         <version>VERSION</version>
         <scope>provided</scope>
     </dependency>
 </dependencies>
 ```
 
-Replace `VERSION` with a release tag or commit hash.
+Replace `VERSION` with a release tag.
 
 ### Usage
 
