@@ -1,5 +1,18 @@
+plugins {
+    id 'maven-publish'
+}
+
 group = 'me.verschuls.mkapi'
 
 jar {
     archiveBaseName.set('MoggedKits-API')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'api'
+        }
+    }
 }
