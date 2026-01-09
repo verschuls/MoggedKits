@@ -4,7 +4,7 @@
 > Powered by pure **anabolic Java**.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Paper](https://img.shields.io/badge/Paper-1.21.4+-blue.svg)](https://papermc.io/)
+[![Paper](https://img.shields.io/badge/Paper-1.21.5+-blue.svg)](https://papermc.io/)
 [![Version](https://img.shields.io/badge/Version-1.1.1-green.svg)](https://github.com/Verschuls/MoggedKits)
 
 ---
