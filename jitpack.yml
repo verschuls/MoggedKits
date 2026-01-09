@@ -1,0 +1,8 @@
+jdk:
+  - openjdk21
+
+install:
+  - ./gradlew :api:build
+
+publish:
+  - api
