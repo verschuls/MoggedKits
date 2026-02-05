@@ -1,0 +1,328 @@
+# Mogger Kit - Peak Mewing Performance Loadout
+version: '1.1'
+
+cooldown: 10
+price: 2000
+
+slot: 14
+
+guiTitle: '&5&lMOGGER ELITE &8| &7Ascend to Greatness'
+
+display:
+  access:
+    material: NETHERITE_CHESTPLATE
+    name: '&5&lMOGGER KIT &7(Available)'
+    amount: 1
+    lore:
+      - '&7The peak mewing performance loadout'
+      - ''
+      - '&d- &7Full netherite with max enchants'
+      - '&d- &7Totems for clutch moments'
+      - '&d- &7Tools for absolute domination'
+      - ''
+      - '&a&lLEFT-CLICK &8» &7Ascend now'
+      - '&e&lRIGHT-CLICK &8» &7Preview the gains'
+    enchants: []
+    flags: ['HIDE_ATTRIBUTES']
+  denied:
+    material: NETHERITE_CHESTPLATE
+    name: '&c&lMOGGER KIT &7(Skill Issue)'
+    amount: 1
+    lore:
+      - '&cYour mewing form is too weak'
+      - ''
+      - '&7Requirements:'
+      - '&c- &7Permission: &fmoggedkits.kit.mogger'
+      - '&c- &7Mewing streak: &f30+ days'
+      - ''
+      - '&e&lRIGHT-CLICK &8» &7Preview anyway'
+    enchants: []
+    flags: ['HIDE_ATTRIBUTES']
+  buy:
+    material: NETHERITE_CHESTPLATE
+    name: '&5&lMOGGER KIT &7(Locked)'
+    amount: 1
+    lore:
+      - '&7Unlock your true potential'
+      - ''
+      - '&ePurchase for &6$2,000'
+      - ''
+      - '&a&lLEFT-CLICK &8» &7Buy now'
+      - '&e&lRIGHT-CLICK &8» &7Preview first'
+    enchants: []
+    flags: ['HIDE_ATTRIBUTES']
+  cooldown:
+    material: NETHERITE_CHESTPLATE
+    name: '&e&lMOGGER KIT &7(Mewing...)'
+    amount: 1
+    lore:
+      - '&7Your jawline is still forming'
+      - ''
+      - '&e- &7Time remaining: &f%kit_mogger_cooldown%'
+      - ''
+      - '&7While you wait:'
+      - '&8- &7Perfect your mewing technique'
+      - '&8- &7Touch grass'
+      - '&8- &7Get that bone remodeling'
+      - ''
+      - '&e&lRIGHT-CLICK &8» &7Preview while you mew'
+    enchants: []
+    flags: ['HIDE_ATTRIBUTES']
+
+statusIcon:
+  enabled: true
+  slot: 52
+  modify_type: OVERRIDE_PARTS
+
+  access:
+    material: ''
+    name: '&5MOGGER &aAvailable'
+    amount: 1
+    lore:
+      - '&7Peak mewing performance loadout'
+      - ''
+      - '&d- &7Full netherite gear'
+      - '&d- &7Totems included'
+      - ''
+      - '&a&lLEFT-CLICK &8» &7Ascend'
+    enchants: []
+    flags: []
+  denied:
+    material: ''
+    name: ''
+    amount: -1
+    lore: []
+    enchants: []
+    flags: []
+  buy:
+    material: ''
+    name: '&ePurchase for &6$2,000'
+    amount: -1
+    lore:
+      - ''
+      - '&a&lLEFT-CLICK &8» &7Buy now'
+    enchants: []
+    flags: []
+  cooldown:
+    material: ''
+    name: '&7Jawline still forming...'
+    amount: -1
+    lore:
+      - ''
+      - '&7Time remaining: &f%kit_mogger_cooldown%'
+      - ''
+      - '&7Keep mewing king'
+    enchants: []
+    flags: []
+
+
+lmb_denied_behavior:
+  enabled: true
+  actions:
+    - '&c&lSKILL ISSUE &8» &7Your mewing form is insufficient'
+    - '&7Unlock at &e&nstore.example.com'
+
+armor:
+  autoEquip: true
+  helmet:
+    material: NETHERITE_HELMET
+    name: '&5&lMEWING MAXIMIZER'
+    amount: 1
+    lore:
+      - '&7Engineered for optimal jaw posture'
+      - '&7+500% mewing effectiveness'
+      - ''
+      - '&d+100% &7Jawline definition'
+      - '&d+50% &7Hollow cheek gains'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'respiration:3'
+      - 'aqua_affinity:1'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+
+  chestplate:
+    material: NETHERITE_CHESTPLATE
+    name: '&5&lLOOKSMAXXER PLATE'
+    amount: 1
+    lore:
+      - '&7Forged in the fires of self-improvement'
+      - '&7Channels pure mewing energy'
+      - ''
+      - '&d+300% &7Aura radius'
+      - '&d+200% &7Mogging potential'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'thorns:3'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+
+  leggings:
+    material: NETHERITE_LEGGINGS
+    name: '&5&lBONESMASHERS'
+    amount: 1
+    lore:
+      - '&7Infused with bone remodeling tech'
+      - '&7Each step restructures your face'
+      - ''
+      - '&d+250% &7Forward growth'
+      - '&d+150% &7Canthal tilt'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'swift_sneak:3'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+
+  boots:
+    material: NETHERITE_BOOTS
+    name: '&5&lAURA WALKERS'
+    amount: 1
+    lore:
+      - '&7Leave a trail of mewing energy'
+      - '&7Others mog themselves when you pass'
+      - ''
+      - '&d+400% &7Presence'
+      - '&d+100% &7Natural intimidation'
+    enchants:
+      - 'protection:4'
+      - 'unbreaking:3'
+      - 'feather_falling:4'
+      - 'depth_strider:3'
+      - 'soul_speed:3'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+
+items:
+  - material: NETHERITE_SWORD
+    name: '&5&lMOG BLADE'
+    amount: 1
+    lore:
+      - '&7One swing and they know their place'
+      - '&7Channels pure mogging energy'
+      - ''
+      - '&d- &7Mog damage: &fLethal'
+      - '&d- &7Skill issue infliction: &fGuaranteed'
+    enchants:
+      - 'sharpness:5'
+      - 'unbreaking:3'
+      - 'looting:3'
+      - 'fire_aspect:2'
+      - 'sweeping_edge:3'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+  - material: NETHERITE_PICKAXE
+    name: '&5&lJAWLINE CHISELER'
+    amount: 1
+    lore:
+      - '&7Mine blocks, chisel jawline'
+      - '&7Every swing sharpens your features'
+      - ''
+      - '&d- &7Mining speed: &fInstant'
+      - '&d- &7Jaw gains: &f+10% per ore'
+    enchants:
+      - 'efficiency:5'
+      - 'unbreaking:3'
+      - 'fortune:3'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+  - material: NETHERITE_AXE
+    name: '&5&lTREE MOGGER'
+    amount: 1
+    lore:
+      - '&7Trees fall, you rise'
+      - '&7Pure lumberjack mewing'
+      - ''
+      - '&d- &7Chop power: &fAbsolute'
+      - '&d- &7Forward growth: &f+15%'
+    enchants:
+      - 'efficiency:5'
+      - 'unbreaking:3'
+      - 'fortune:3'
+      - 'sharpness:5'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+  - material: BOW
+    name: '&5&lORBITAL RIMMER'
+    amount: 1
+    lore:
+      - '&7Snipe with hunter eyes precision'
+      - '&7Never miss your target'
+      - ''
+      - '&d- &7Accuracy: &fHunter eyes'
+      - '&d- &7Target intimidation: &fMax'
+    enchants:
+      - 'power:5'
+      - 'unbreaking:3'
+      - 'flame:1'
+      - 'infinity:1'
+      - 'mending:1'
+    flags: ['HIDE_ATTRIBUTES']
+  - material: ARROW
+    name: '&7Ammunition'
+    amount: 1
+    lore: []
+    enchants: []
+    flags: []
+  - material: TOTEM_OF_UNDYING
+    name: '&6&lMEW TOTEM'
+    amount: 1
+    lore:
+      - '&7Second chance to mog'
+      - '&7Death cannot stop the grind'
+      - ''
+      - '&6- &7Clutch factor: &fInfinite'
+    enchants: []
+    flags: []
+  - material: TOTEM_OF_UNDYING
+    name: '&6&lMEW TOTEM'
+    amount: 1
+    lore:
+      - '&7Second chance to mog'
+      - '&7Death cannot stop the grind'
+      - ''
+      - '&6- &7Clutch factor: &fInfinite'
+    enchants: [ ]
+    flags: [ ]
+  - material: ENCHANTED_GOLDEN_APPLE
+    name: '&6&lGOLDEN MEW'
+    amount: 4
+    lore:
+      - '&7Consume for instant bone remodeling'
+      - '&7Side effects:'
+      - '&8- &7Sharper jawline'
+      - '&8- &7Better forward growth'
+      - '&8- &7Increased mewing power'
+    enchants: []
+    flags: []
+  - material: COOKED_BEEF
+    name: '&5&lMEWING FUEL'
+    amount: 64
+    lore:
+      - '&7High protein for jaw gains'
+      - '&7Chew slowly for max effect'
+      - ''
+      - '&d- &7Protein: &f100g per bite'
+      - '&d- &7Masseter gains: &fGuaranteed'
+    enchants: []
+    flags: []
+  - material: ENDER_PEARL
+    name: '&d&lINSTANT ASCENSION'
+    amount: 32
+    lore:
+      - '&7Teleport past the competition'
+      - '&7Leave them mogged'
+    enchants: []
+    flags: []
+  - material: EXPERIENCE_BOTTLE
+    name: '&a&lLIQUID LOOKSMAX'
+    amount: 32
+    lore:
+      - '&7Distilled mewing knowledge'
+      - ''
+      - '&a- &7Contains: Mike Mew teachings'
+      - '&a- &7Absorb the wisdom'
+    enchants: []
+    flags: []

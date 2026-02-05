@@ -2,7 +2,6 @@ package me.verschuls.tren.config.messages;
 
 import de.exlll.configlib.Comment;
 import de.exlll.configlib.Configuration;
-import de.exlll.configlib.Ignore;
 import lombok.Getter;
 
 @Configuration
@@ -19,23 +18,18 @@ public class MKits {
             "Promotes the server store because bills don't pay themselves"})
     private String cant_access = "%prefix% &cThis kit requires a bigger jawline. &e&lGet mogged at our shop.";
 
+    @Comment({"Economy messages for the pay2mog experience",
+            "Requires Vault - skip this section if your server runs on hopes and dreams"})
+    private Economy economy = new Economy();
+
     @Comment("Successfully claimed a kit - you're now 20% more chad")
     private String kit_granted = "%prefix% &aKit &e%kit% &aacquired! +15 testosterone, +20% jawline definition!";
 
     @Comment("When someone's on cooldown but still trying to spam kits")
     private String on_cooldown = "%prefix% &cSlow down turbo! &eKit &6%kit% &eis on cooldown for &6%time%";
 
-    @Comment("When they check their cooldown status") @Ignore
-    private String cooldown_expired = "%prefix% &aYour &e%kit% &acooldown expired. Time to mog again!";
-
     @Comment("Preview message - window shopping for chads")
     private String preview_only = "%prefix% &7You're previewing kit &e%kit% &7- Look but don't touch!";
-
-    @Comment("When someone gets a kit gifted to them") @Ignore
-    private String kit_gifted = "%prefix% &a%sender% &ejust blessed you with kit &6%kit%&e. What a chad!";
-
-    @Comment("When you successfully gift a kit to someone") @Ignore
-    private String kit_gift_sent = "%prefix% &aYou've mogged &e%player% &awith kit &6%kit%&a!";
 
     @Comment("No kits available - true beta moment")
     private String no_kits_available = "%prefix% &cYou have no kits. Absolute poverty moment.";
@@ -48,4 +42,27 @@ public class MKits {
 
     @Comment("When inventory is full but items were dropped on ground")
     private String inventory_full_dropped = "%prefix% &eYour pockets were full so &6%dropped% items &egot yeeted on the ground!";
+
+    @Configuration @Getter
+    public static class Economy {
+        @Comment({"Clickable purchase prompt - time to extract those V-bucks",
+                "Placeholders: %kit%, %price%, %confirm% - configurable below"})
+        private String buy = "%prefix% &eKit &6%kit% &ecosts &a$%price%$&e. %confirm%";
+
+        @Comment({"When they already own this kit - redirect them to claim it",
+                "Placeholders: %kit%"})
+        private String bought = "%prefix% &aYou already own &e%kit%&a! Claim it with &6/kit %kit%&a, king.";
+
+        @Comment({"The clickable call-to-action in buy_access - make it irresistible",
+                "This is what separates the whales from the minnows"})
+        private String confirm = "&6&nClick to ascend!";
+
+        @Comment({"Purchase successful - they've joined the elite",
+                "Placeholders: %kit%"})
+        private String success = "%prefix% &aYou just copped &e%kit%&a! Your mog level increased significantly!";
+
+        @Comment({"Transaction failed - their card got ratio'd",
+                "Placeholders: %kit%"})
+        private String failed = "%prefix% &cPurchase failed for &e%kit%&c. Your bank said no. L + broke + cope harder.";
+    }
 }

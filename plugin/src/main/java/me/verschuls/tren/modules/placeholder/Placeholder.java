@@ -37,7 +37,7 @@ public class Placeholder {
             Logger.info("Found PlaceholderAPI. Creating expansion...");
             if (new PAPI(MoggedKits.getInstance()).register()) {
                 papi = true;
-                Logger.success("PAPI Expansion registered");
+                Logger.success("PAPI expansion registered");
                 return;
             }
             Logger.error("Wasn't able to create PAPI expansion");
@@ -84,10 +84,6 @@ public class Placeholder {
         for (String s : text)
             parsed.add(parse(player, s));
         return parsed;
-    }
-
-    public String[] parse(@Nullable Player player, String... text) {
-        return parse(player, List.of(text)).toArray(String[]::new);
     }
 
     public String parse(@Nullable Player player, String text) {

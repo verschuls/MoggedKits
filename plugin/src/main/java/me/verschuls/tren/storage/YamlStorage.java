@@ -1,15 +1,15 @@
 package me.verschuls.tren.storage;
 
-import de.exlll.configlib.Configuration;
+import lombok.AccessLevel;
+import lombok.Getter;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.utils.Logger;
-import me.verschuls.ylf.CFilter;
-import me.verschuls.ylf.CIdentifier;
-import me.verschuls.ylf.CMI;
+import me.verschuls.ylf.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -17,7 +17,7 @@ import java.util.concurrent.Executor;
 
 public class YamlStorage extends StorageHandler {
 
-    private final CMI<UUID, PlayerData> storage;
+    private CMI<UUID, PlayerData> storage;
 
     public YamlStorage(JavaPlugin plugin, Executor executor) {
         super(plugin, executor);
@@ -38,10 +38,17 @@ public class YamlStorage extends StorageHandler {
         }
     }
 
+    HashMap<UUID, PlayerData> getAll() {
+        HashMap<UUID, PlayerData> data = new HashMap<>();
+        for (Map.Entry<UUID, ConfigInfo<PlayerData>> player : storage.get().entrySet())
+            data.put(player.getKey(), player.getValue().getData());
+        return data;
+    }
+
     @Override
     public void putCooldown(Player player, String kit, int time) {
         UUID uuid = player.getUniqueId();
-        PlayerData data = storage.get(uuid).orElseGet(()->storage.create(uuid, uuid.toString()));
+        PlayerData data = storage.get(uuid).orElseGet(()->storage.create(uuid, uuid.toString()).getData());
         data.cooldown.put(kit, System.currentTimeMillis()+(time*60_000L));
         storage.save(uuid, data);
     }
@@ -50,7 +57,7 @@ public class YamlStorage extends StorageHandler {
     public Long getCooldown(Player player, String kit) {
         UUID uuid = player.getUniqueId();
         PlayerData data = storage.get(uuid).orElseGet(()->{
-            PlayerData new_data = storage.create(uuid, uuid.toString());
+            PlayerData new_data = storage.create(uuid, uuid.toString()).getData();
             new_data.cooldown.putIfAbsent(kit, 0L);
             storage.save(uuid, new_data);
             return new_data;
@@ -63,12 +70,27 @@ public class YamlStorage extends StorageHandler {
     }
 
     @Override
+    public void setAccess(Player player, String kit, boolean access) {
+    }
+
+    @Override
+    public boolean hasAccess(Player player, String kit) {
+        return false;
+    }
+
+    @Override
     public Info getInfo() {
         return new Info("YAML", true, storage.get().size(), null);
     }
 
-    @Configuration
-    private static class PlayerData {
+    @Override
+    public void shutdown() {}
+
+    @Override
+    public void clear() {}
+
+    @Getter(AccessLevel.PACKAGE)
+    static class PlayerData extends BaseData {
         private Map<String, Long> cooldown = new LinkedHashMap<>();
     }
 }

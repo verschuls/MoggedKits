@@ -5,6 +5,7 @@ import lombok.Getter;
 import me.verschuls.tren.config.messages.MCommon;
 import me.verschuls.tren.config.messages.MKits;
 import me.verschuls.ylf.BaseConfig;
+import me.verschuls.ylf.BaseData;
 import me.verschuls.ylf.CVersion;
 
 import java.nio.file.Path;
@@ -18,8 +19,8 @@ public class Messages extends BaseConfig<Messages.Data> {
     }
 
     @Getter
-    @CVersion("1.0")
-    public static class Data extends BaseConfig.Data {
+    @CVersion("1.1")
+    public static class Data extends BaseData {
 
         @Comment({"The prefix that mogs all other prefixes. This shows before every message.",
                   "Default: &6[&4Mogged&cKits&r&6] - because your kits need to assert dominance"})

@@ -4,6 +4,7 @@ import de.exlll.configlib.Comment;
 import lombok.Getter;
 import me.verschuls.tren.config.config.YamlGUI;
 import me.verschuls.ylf.BaseConfig;
+import me.verschuls.ylf.BaseData;
 import me.verschuls.ylf.CVersion;
 import me.verschuls.ylf.Header;
 
@@ -27,9 +28,8 @@ public class Config extends BaseConfig<Config.Data> {
             
             
             """)
-    @CVersion("1.1")
-    public static class Data extends BaseConfig.Data {
-
+    @CVersion("1.2")
+    public static class Data extends BaseData {
 
         @Comment("Used for reporting bugs and editing if u know what your doing")
         private boolean debug = false;

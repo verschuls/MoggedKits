@@ -3,6 +3,7 @@ package me.verschuls.tren.config;
 import de.exlll.configlib.Comment;
 import lombok.Getter;
 import me.verschuls.ylf.BaseConfig;
+import me.verschuls.ylf.BaseData;
 import me.verschuls.ylf.Header;
 
 import java.nio.file.Path;
@@ -23,7 +24,7 @@ public class Redis extends BaseConfig<Redis.Data> {
             Set host and port to enable - plugin auto-migrates from YAML.
             Leave host empty to use local YAML storage.
             """)
-    public static class Data extends BaseConfig.Data {
+    public static class Data extends BaseData {
 
         @Comment("Redis server hostname/IP (empty = use YAML storage)")
         private String host = "";

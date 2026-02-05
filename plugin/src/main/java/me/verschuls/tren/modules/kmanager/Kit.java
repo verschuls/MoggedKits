@@ -3,7 +3,6 @@ package me.verschuls.tren.modules.kmanager;
 import lombok.Getter;
 import me.verschuls.mkapi.KitClaimEvent;
 import me.verschuls.mkapi.MKit;
-import me.verschuls.mkapi.MoggedKitsAPI;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.config.Config;
 import me.verschuls.tren.config.config.YamlGUI;
@@ -13,7 +12,6 @@ import me.verschuls.tren.modules.gui.GUI;
 import me.verschuls.tren.modules.gui.GUIManager;
 import me.verschuls.tren.utils.ItemUtils;
 import me.verschuls.ylf.CM;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Kit {
 
     private String name;
+    @Getter
+    private double price = -1;
 
     private final List<ItemStack> items = new ArrayList<>();
     private final Armor armor;
@@ -35,9 +35,8 @@ public class Kit {
 
     Kit(String id, YamlKit yaml, YamlGUI.Menu.ClickSound clickSound) {
         this.name = id;
-        yaml.getItems().forEach((name, kit)->{
-            items.add(kit.format(name));
-        });
+        if (yaml.getPrice() > 0) this.price = yaml.getPrice();
+        yaml.getItems().forEach(i->this.items.add(i.format()));
         YamlGUI.Kit kitGUI = CM.get(Config.class).getKit_preview();
         ItemStack filler = ItemUtils.blankItem(Material.valueOf(kitGUI.getFiller().toUpperCase()));
         armor = new Armor(yaml.getArmor(), filler);
@@ -59,37 +58,43 @@ public class Kit {
         YamlKit.StatusIcon status = yaml.getStatusIcon();
         if (status.isEnabled()) {
             YamlKit.Display display = yaml.getDisplay();
-            YamlItemStack.Basic access;
-            YamlItemStack.Basic cooldown;
-            YamlItemStack.Basic denied;
+            YamlItemStack access;
+            YamlItemStack cooldown;
+            YamlItemStack denied;
+            YamlItemStack buy;
             switch (status.getModify_type()) {
                 case OVERRIDE_PARTS -> {
                     access = display.getAccess().clone().override(status.getAccess());
                     cooldown = display.getCooldown().clone().override(status.getCooldown());
                     denied = display.getDenied().clone().override(status.getDenied());
+                    buy = display.getBuy().clone().override(status.getDenied());
                 }
                 case OVERRIDE_WHOLE -> {
                     access = status.getAccess();
                     cooldown = status.getCooldown();
                     denied = status.getDenied();
+                    buy = display.getBuy();
                 }
                 default -> {
                     access = display.getAccess();
                     cooldown = display.getCooldown();
                     denied = display.getDenied();
+                    buy = display.getBuy();
                 }
             }
             gui.render(status.getSlot(), (p, id_) -> {
-                if (p.hasPermission("moggedkits.kit." + name)) {
+                if (KitManager.get().hasAccess(p, name)) {
                     if (KitManager.get().hasCooldown(p, name)) return cooldown.format(p);
                     return access.format(p);
                 }
+                if (MoggedKits.isVault() && price > 0) return buy.format(p);
                 return denied.format(p);
             });
             gui.button(status.getSlot(), (event) -> {
                 if (event.getClickType().isLeftClick()) {
                     event.getPlayer().performCommand("kit " + name);
                     event.getPlayer().closeInventory();
+                    return null;
                 }
                 if (event.getClickType().isRightClick()) preview(event.getPlayer());
                 return null;

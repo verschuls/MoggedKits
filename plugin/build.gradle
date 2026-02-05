@@ -9,11 +9,17 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.verschuls:YamlFlow:v1.2.1")
+    // Configuration
+    implementation("com.github.verschuls:YamlFlow:v1.2.4")
     compileOnly("org.snakeyaml:snakeyaml-engine:2.7")
+    // Data
     compileOnly("io.lettuce:lettuce-core:7.0.0.RELEASE")
+    compileOnly("com.h2database:h2:2.4.240")
     compileOnly("org.lz4:lz4-java:1.8.0")
+    // Minecraft
     compileOnly("me.clip:placeholderapi:2.11.7")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    // Project
     implementation project(':api')
 }
 
@@ -50,8 +56,7 @@ shadowJar {
     archiveFileName.set("${rootProject.name}-${version}.jar")
 
     def prefix = project.group+".libs"
-    ["org.jetbrains.annotations",
-     "de.exlll.configlib", "me.verschuls.ylf"]
+    ["de.exlll.configlib", "me.verschuls.ylf"]
             .forEach { pack ->
                 def split = pack.split("\\.");
                 def name = split[split.length-1];

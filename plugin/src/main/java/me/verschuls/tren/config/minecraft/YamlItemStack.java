@@ -19,78 +19,44 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-
 @Configuration
-public abstract class YamlItemStack {
+public class YamlItemStack {
 
-    public static YamlItemStack.Basic basic() {
-        return new YamlItemStack.Basic();
+    @Setter
+    private String material = "";
+    private String name = "";
+    private Integer amount = 1;
+    private List<String> lore = new ArrayList<>();
+    private String[] enchants = {};
+    private String[] flags = {};
+
+    private YamlItemStack() {}
+    public static YamlItemStack create() {
+        return new YamlItemStack();
     }
 
-    public static YamlItemStack.Basic basic(String name, String material) {
-        YamlItemStack.Basic item = new YamlItemStack.Basic();
+    public static YamlItemStack create(String material) {
+        YamlItemStack item = new YamlItemStack();
         item.material = material;
-        item.name = name;
         return item;
     }
 
-    public static YamlItemStack.Section section() {
-        return new YamlItemStack.Section();
+    public static YamlItemStack create(String name, String material) {
+        YamlItemStack item = new YamlItemStack();
+        item.name = name;
+        item.material = material;
+        return item;
     }
 
-    protected String name = "";
-    protected Integer amount = 1;
-    protected List<String> lore = new ArrayList<>();
-    protected String[] enchants = {};
-    protected String[] flags = {};
-
-    public static class Section extends YamlItemStack {
-        private Section() {}
-        public ItemStack format(String material) {
-            return this.format_(material, null);
-        }
-
-        public ItemStack format(String material, Player p) {
-            return this.format_(material, p);
-        }
-    }
-    public static class Basic extends YamlItemStack {
-        private Basic() {}
-        @Setter
-        private String material = "";
-
-        public ItemStack format() {
-            return format_(this.material, null);
-        }
-
-        public ItemStack format(Player p) {
-            return format_(this.material, p);
-        }
-
-        public Basic override(YamlItemStack.Basic item) {
-            if (!item.material.isBlank()) material = item.material;
-            if (!item.name.isEmpty()) name = item.name;
-            if (item.amount > amount) amount = item.amount;
-            if (!item.lore.isEmpty()) lore = item.lore;
-            if (item.enchants.length > 0) enchants = item.enchants;
-            if (item.flags.length > 0) flags = item.flags;
-            return this;
-        }
-
-        @Override
-        public Basic clone() {
-            Basic clone = new Basic();
-            clone.material = material;
-            clone.name = name;
-            clone.amount = amount;
-            clone.lore = lore;
-            clone.enchants = enchants;
-            clone.flags = flags;
-            return clone;
-        }
+    public ItemStack format() {
+        return format_(this.material, null);
     }
 
-    protected ItemStack format_(String material, @Nullable Player p) {
+    public ItemStack format(Player p) {
+        return format_(this.material, p);
+    }
+
+    private ItemStack format_(String material, @Nullable Player p) {
         if (material == null) return null;
         Material mat = Material.valueOf(material);
         ItemStack stack = new ItemStack(mat);
@@ -109,5 +75,27 @@ public abstract class YamlItemStack {
             Arrays.stream(flags).map(ItemFlag::valueOf).forEach(meta::addItemFlags);
         stack.setItemMeta(meta);
         return stack;
+    }
+
+    public YamlItemStack override(YamlItemStack item) {
+        if (!item.material.isBlank()) material = item.material;
+        if (!item.name.isEmpty()) name = item.name;
+        if (item.amount > amount) amount = item.amount;
+        if (!item.lore.isEmpty()) lore = item.lore;
+        if (item.enchants.length > 0) enchants = item.enchants;
+        if (item.flags.length > 0) flags = item.flags;
+        return this;
+    }
+
+    @Override
+    public YamlItemStack clone() {
+        YamlItemStack clone = new YamlItemStack();
+        clone.material = material;
+        clone.name = name;
+        clone.amount = amount;
+        clone.lore = lore;
+        clone.enchants = enchants;
+        clone.flags = flags;
+        return clone;
     }
 }

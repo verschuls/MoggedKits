@@ -8,7 +8,6 @@ import java.util.List;
 
 public class MsgUtils {
 
-
     public static void send(CommandSender sender, String message) {
         sender.sendMessage(TextUtils.format(Placeholder.get().parse(sender instanceof Player p ? p : null, message)));
     }

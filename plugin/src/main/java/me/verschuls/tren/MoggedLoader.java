@@ -23,14 +23,11 @@ public class MoggedLoader implements PluginLoader {
     @Override
     public void classloader(@NotNull PluginClasspathBuilder classpathBuilder) {
         final MavenLibraryResolver resolver = new MavenLibraryResolver();
-
         resolveLibraries(classpathBuilder).stream()
                 .map(DefaultArtifact::new)
                 .forEach(artifact -> resolver.addDependency(new Dependency(artifact, null)));
         resolver.addRepository(new RemoteRepository.Builder("maven", "default", getMavenUrl()).build());
-
         classpathBuilder.addLibrary(resolver);
-
     }
 
     @NotNull
