@@ -13,6 +13,8 @@
 # Stop trying to delete the template and start mewing, maybe you'll understand the grindset
 # This file will outlive your entire config folder. Cope, seethe, and get mogged 💀
 
+version: '1.1'
+
 # === GENERAL SETTINGS (SIGMA CONFIG ZONE) ===
 
 # Cooldown between kit claims (in mewing minutes)
@@ -21,9 +23,16 @@
 # 1440 = Touch grass for 24 hours (beta behavior)
 cooldown: 5
 
-# Deprecated: Now use slot value. 1.2 will have this removed
-weight: 0
+# Kit price (requires Vault economy plugin)
+# Set to 0 for free kits, or any positive number to charge players
+# When price > 0: 'buy' display takes priority over 'denied' display
+# Note: Buying a kit is tracked internally - it does NOT grant permissions
+price: 0
 
+# Position in the kits GUI (0-53 for 6-row inventory)
+# Used to be called 'weight' - after too many energy drinks I overengineered
+# a whole sorting system. Woke up next day and saw it mogging the codebase.
+# Mass deleted the bloat. Now it's just a slot number. You're welcome.
 slot: 13
 
 # GUI title when previewing this absolute unit of a kit
@@ -154,7 +163,7 @@ armor:
 # Empty kit? Use 'items: []' or 'items: {}' for the fasting arc
 items:
   # Starter example (replace STONE with actual chad materials)
-  STONE:                        # The material (DIAMOND_SWORD for alphas)
+  - material: ""                # The material (DIAMOND_SWORD for alphas)
     name: ''                    # Item's rizz name (use & colors)
     amount: 1                   # Stack size (64 for maximum flex)
     lore: []                    # Item's backstory and power level

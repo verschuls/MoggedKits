@@ -6,18 +6,36 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executor;
 
-public class BukkitExecutor implements Executor {
+public class BukkitExecutor {
+    private BukkitExecutor() {}
 
-    private final JavaPlugin plugin;
-    private final BukkitScheduler scheduler;
+    public static class Sync implements Executor {
+        private final JavaPlugin plugin;
+        private final BukkitScheduler scheduler;
 
-    public BukkitExecutor(JavaPlugin plugin) {
-        this.plugin = plugin;
-        this.scheduler = plugin.getServer().getScheduler();
+        public Sync(JavaPlugin plugin) {
+            this.plugin = plugin;
+            this.scheduler = plugin.getServer().getScheduler();
+        }
+
+        @Override
+        public void execute(@NotNull Runnable command) {
+            scheduler.runTask(plugin, command);
+        }
     }
 
-    @Override
-    public void execute(@NotNull Runnable command) {
-        scheduler.runTask(plugin, command);
+    public static class ASync implements Executor {
+        private final JavaPlugin plugin;
+        private final BukkitScheduler scheduler;
+
+        public ASync(JavaPlugin plugin) {
+            this.plugin = plugin;
+            this.scheduler = plugin.getServer().getScheduler();
+        }
+
+        @Override
+        public void execute(@NotNull Runnable command) {
+            scheduler.runTaskAsynchronously(plugin, command);
+        }
     }
 }

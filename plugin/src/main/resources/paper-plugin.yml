@@ -8,6 +8,10 @@ description: Upgrade your loadout & jawline
 website: https://verschuls.xyz
 dependencies:
   server:
+    Vault:
+      load: BEFORE
+      required: false
+      join-classpath: true
     PlaceholderAPI:
       load: BEFORE
       required: false

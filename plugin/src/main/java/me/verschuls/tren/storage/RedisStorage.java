@@ -34,8 +34,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class RedisStorage extends StorageHandler {
 
-    private static final String KEY_PREFIX = "moggedkits:cooldown:";
-
     @Getter
     private final String instanceId = UUID.randomUUID().toString().substring(0, 8);
 
@@ -209,13 +207,17 @@ public class RedisStorage extends StorageHandler {
         }
     }
 
-    private String buildKey(UUID uuid, String kit) {
-        return KEY_PREFIX + uuid.toString() + ":" + kit;
+    private String buildCooldownKey(UUID uuid, String kit) {
+        return "moggedkits:cooldown:" + uuid.toString() + ":" + kit;
+    }
+
+    private String buildAccessKey(UUID uuid) {
+        return "moggedkits:access:" + uuid.toString();
     }
 
     @Override
     public void putCooldown(Player player, String kit, int time) {
-        String key = buildKey(player.getUniqueId(), kit);
+        String key = buildCooldownKey(player.getUniqueId(), kit);
         long expireAt = System.currentTimeMillis() + (time * 60_000L);
         commands.set(key, String.valueOf(expireAt))
                 .thenCompose(result -> commands.pexpireat(key, expireAt + 60_000L))
@@ -227,7 +229,7 @@ public class RedisStorage extends StorageHandler {
 
     @Override
     public Long getCooldown(Player player, String kit) {
-        String key = buildKey(player.getUniqueId(), kit);
+        String key = buildCooldownKey(player.getUniqueId(), kit);
         try {
             String value = commands.get(key).get(2, TimeUnit.SECONDS);
             if (value == null) return 0L;
@@ -236,6 +238,40 @@ public class RedisStorage extends StorageHandler {
             Logger.error("Failed to get cooldown for " + player.getName() + " kit " + kit, e);
             return 0L;
         }
+    }
+
+    @Override
+    public void setAccess(Player player, String kit, boolean access) {
+        String key = buildAccessKey(player.getUniqueId());
+        if (access) {
+            commands.sadd(key, kit)
+                    .exceptionally(ex -> {
+                        Logger.error("Failed to grant access for {} kit {}", (Exception) ex, player.getName(), kit);
+                        return null;
+                    });
+        } else {
+            commands.srem(key, kit)
+                    .exceptionally(ex -> {
+                        Logger.error("Failed to revoke access for {} kit {}", (Exception) ex, player.getName(), kit);
+                        return null;
+                    });
+        }
+    }
+
+    @Override
+    public boolean hasAccess(Player player, String kit) {
+        String key = buildAccessKey(player.getUniqueId());
+        try {
+            return commands.sismember(key, kit).get(2, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            Logger.error("Failed to check access for " + player.getName() + " kit " + kit, e);
+            return false;
+        }
+    }
+
+    @Override
+    public void clear() {
+
     }
 
     @Override

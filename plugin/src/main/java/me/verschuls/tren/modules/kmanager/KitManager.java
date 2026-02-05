@@ -1,7 +1,6 @@
 package me.verschuls.tren.modules.kmanager;
 
 import me.verschuls.mkapi.KitsLoadedEvent;
-import me.verschuls.mkapi.MoggedKitsAPI;
 import me.verschuls.tren.MoggedKits;
 import me.verschuls.tren.config.Config;
 import me.verschuls.tren.config.config.YamlGUI;
@@ -13,11 +12,7 @@ import me.verschuls.tren.utils.ItemUtils;
 import me.verschuls.tren.utils.Logger;
 import me.verschuls.tren.utils.MsgUtils;
 import me.verschuls.tren.utils.Utils;
-import me.verschuls.ylf.CFilter;
-import me.verschuls.ylf.CIdentifier;
-import me.verschuls.ylf.CM;
-import me.verschuls.ylf.CMI;
-import org.bukkit.Bukkit;
+import me.verschuls.ylf.*;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -63,12 +58,21 @@ public class KitManager {
                 try {
                     Logger.info("Initializing kits...");
                     Path kitsDir = plugin.getDataPath().resolve("kits");
-                    if (Files.notExists(kitsDir)) Files.createDirectory(kitsDir);
+                    if (Files.notExists(kitsDir)) {
+                        Logger.debug("Creating kits directory: " + kitsDir);
+                        Files.createDirectory(kitsDir);
+                    }
+                    Logger.debug("Loading default kit resource: " + config.getDefaultKit() + ".yml");
                     createFromResource("chad.yml", kitsDir, config.getDefaultKit() + ".yml");
+                    createFromResource("mogger.yml", kitsDir, "mogger.yml");
                     createFromResource("_example_.yml", kitsDir, "_example_.yml");
                     this.defaultKit = config.getDefaultKit();
-                    this.yamlKits = CMI.newBuilder(plugin.getDataPath().resolve("kits"), YamlKit.class, CIdentifier.fileName()).executor(MoggedKits.getExecutor()).filter(CFilter.underScores()).build();
+                    Logger.debug("Default kit set to: " + this.defaultKit);
+                    Logger.debug("Building CMI for kits directory...");
+                    this.yamlKits = CMI.newBuilder(kitsDir, YamlKit.class, CIdentifier.fileName()).filter(CFilter.underScores()).executor(MoggedKits.getExecutor()).build();
+                    Logger.debug("CMI built for kits directory...");
                     this.yamlKits.onInit().thenAcceptAsync(kit -> {
+                        Logger.debug("CMI initialized, found " + kit.size() + " kit files");
                         loadKits(kit);
                         Logger.success("Kits loaded! &2" + kit.keySet());
                         Placeholder.get().registerComplex("kit", (player, args) -> {
@@ -76,13 +80,13 @@ public class KitManager {
                             return String.valueOf(switch (args[1]) {
                                 case "cooldown" -> getCooldown(player, args[0]);
                                 case "rawcooldown" -> getRawCooldown(player, args[0]);
-                                case "title" -> kit.get(args[0]).getGuiTitle();
-                                case "access" -> player.hasPermission("moggedkits.kit."+args[0]);
+                                case "title" -> kit.get(args[0]).getData().getGuiTitle();
+                                case "access" -> hasAccess(player, args[0]);
                                 default -> "KitFunctionNotFound";
                             });
                         });
                         Placeholder.get().registerSimple("kits", (player -> Utils.clean(kitList(player))));
-                        waiter.completeAsync(KitManager::get, MoggedKits.getExecutor());
+                        waiter.complete(this);
                     }, MoggedKits.getExecutor()).exceptionallyAsync(throwable -> {
                         Logger.error("There was an issue while creating/reading kits", new Exception(throwable));
                         MoggedKits.disable();
@@ -108,40 +112,53 @@ public class KitManager {
     private void createFromResource(String res, Path path, String actual) {
         try (InputStream stream = plugin.getResource(res)) {
             Path file = path.resolve(actual);
-            if (Files.notExists(file)) Files.copy(stream, file);
+            if (Files.notExists(file)) {
+                Logger.debug("Creating kit file from resource: " + res + " -> " + actual);
+                Files.copy(stream, file);
+            }
         } catch (IOException e) {
             Logger.error("There was an issue while initializing kits", e);
             throw new RuntimeException();
         }
     }
 
-    private void loadKits(HashMap<String, YamlKit> kits) {
+    private void loadKits(HashMap<String, ConfigInfo<YamlKit>> kits) {
+        Logger.debug("Starting kit loading process...");
         PluginManager manager = this.plugin.getServer().getPluginManager();
+        Logger.debug("Cleaning up old kit permissions...");
         for (Permission perm : manager.getPermissions())
             if (perm.getName().startsWith("moggedkits.kit."))
                 manager.removePermission(perm);
         this.kits.clear();
         this.deniedActions.clear();
+        Logger.debug("Loading main menu configuration...");
         YamlGUI.Menu yamlGUI = CM.get(Config.class).getMain_menu();
         GUI.Builder main_menu = GUI.newBuilder(yamlGUI.getTitle(), yamlGUI.getRows(), "main_menu_kits");
         for (int i = 0; i < yamlGUI.getRows()*9; i++)
             main_menu.setItem(i, ItemUtils.blankItem(Material.valueOf(yamlGUI.getFiller().toUpperCase())));
         if (yamlGUI.getClickSound().enabled())
             main_menu.clickSound(yamlGUI.getClickSound().sound(), yamlGUI.getClickSound().volume());
-        kits.forEach((key, kit)->{
+        Logger.debug("Processing " + kits.size() + " kits...");
+        kits.forEach((key, kit_)->{
+            Logger.debug("Loading kit: " + key);
+            YamlKit kit = kit_.getData();
             if (kit.getLmb_denied_behavior().isEnabled()) {
                 deniedActions.put(key, kit.getLmb_denied_behavior().getActions());
+                Logger.debug("  - Registered denied actions for: " + key);
             }
-            int place = kit.getWeight() <= 0 ? kit.getSlot() : yamlGUI.getKit_slots()[kit.getWeight()];
+            int place = kit.getSlot();
             this.kits.put(key, new Kit(key, kit, yamlGUI.getClickSound()));
+            Logger.debug("  - Kit registered at slot: " + place);
             YamlKit.Display display = kit.getDisplay();
             if (!key.equalsIgnoreCase(defaultKit)) {
                 manager.addPermission(Permission.loadPermission("moggedkits.kit." + key, Map.of("default", "op")));
+                Logger.debug("  - Permission registered: moggedkits.kit." + key);
                 main_menu.render(place, (p, id) -> {
-                    if (p.hasPermission("moggedkits.kit." + key)) {
+                    if (hasAccess(p, key)) {
                         if (hasCooldown(p, key)) return display.getCooldown().format(p);
                         return display.getAccess().format(p);
                     }
+                    if (MoggedKits.isVault() && kit.getPrice() > 0) return display.getBuy().format(p);
                     return display.getDenied().format(p);
                 });
             } else main_menu.render(place, (p, id) -> {
@@ -157,12 +174,16 @@ public class KitManager {
                 return null;
             });
         });
+        Logger.debug("Registering main menu GUI...");
         GUIManager.get().register(main_menu.build());
+        Logger.debug("Firing KitsLoadedEvent with " + kits.size() + " kits");
         MoggedKits.callEvent(new KitsLoadedEvent(new ArrayList<>(kitListFull().stream().map(Kit::intoAPI).toList())));
     }
 
     public void reload() {
+        Logger.debug("Reloading kits...");
         this.yamlKits.reload();
+        Logger.debug("Notifying " + reload.size() + " reload listeners");
         reload.forEach(this::accept);
     }
 
@@ -175,7 +196,19 @@ public class KitManager {
     }
 
     public Set<String> kitList(Player player) {
-        return yamlKits.get().keySet().stream().filter(k -> player.hasPermission("moggedkits.kit."+k) || defaultKit.equalsIgnoreCase(k)).collect(Collectors.toSet());
+        return yamlKits.get().keySet().stream().filter(k -> hasAccess(player, k)).collect(Collectors.toSet());
+    }
+
+    public void setAccess(Player player, String kit, boolean access) {
+        if (kit.equalsIgnoreCase("all")) {
+            kitList().forEach(k->MoggedKits.getStorage().setAccess(player, k, access));
+            return;
+        }
+        MoggedKits.getStorage().setAccess(player, kit, access);
+    }
+
+    public boolean hasAccess(Player player, String kit) {
+        return player.hasPermission("moggedkits.kit."+kit) || MoggedKits.getStorage().hasAccess(player, kit) || defaultKit.equalsIgnoreCase(kit);
     }
 
     long getRawCooldown(String kit) {
@@ -206,6 +239,10 @@ public class KitManager {
         if (seconds > 0 || parts.isEmpty()) parts.add(seconds + "s");
 
         return String.join(" ", parts.subList(0, Math.min(2, parts.size())));
+    }
+
+    public double kitPrice(String kit) {
+        return kits.get(kit).getPrice();
     }
 
     public boolean runDenied(Player player, String kit) {

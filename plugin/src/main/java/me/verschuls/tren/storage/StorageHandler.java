@@ -15,7 +15,12 @@ public abstract class StorageHandler {
 
     public abstract void putCooldown(Player player, String kit, int time);
     public abstract Long getCooldown(Player player, String kit);
+    public abstract void setAccess(Player player, String kit, boolean access);
+    public abstract boolean hasAccess(Player player, String kit);
     public abstract Info getInfo();
+
+    public abstract void shutdown();
+    public abstract void clear();
 
 
     public record Info(

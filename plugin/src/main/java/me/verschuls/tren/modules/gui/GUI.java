@@ -1,13 +1,11 @@
 package me.verschuls.tren.modules.gui;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.verschuls.tren.modules.placeholder.Placeholder;
 import me.verschuls.tren.utils.TextUtils;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

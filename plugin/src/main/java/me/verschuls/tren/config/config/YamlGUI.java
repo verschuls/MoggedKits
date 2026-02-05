@@ -4,7 +4,6 @@ import de.exlll.configlib.Comment;
 import de.exlll.configlib.Configuration;
 import lombok.Getter;
 import me.verschuls.tren.config.minecraft.YamlItemStack;
-import net.kyori.adventure.sound.Sound;
 
 @Getter
 public class YamlGUI {
@@ -28,7 +27,7 @@ public class YamlGUI {
         private int return_slot = 53;
 
         @Comment("Back button item - returns to main menu, escape route for window shoppers")
-        private YamlItemStack.Basic return_item = YamlItemStack.basic("&cGo Back", "ARROW");
+        private YamlItemStack return_item = YamlItemStack.create("&cGo Back", "ARROW");
     }
 
     @Configuration @Getter
@@ -41,9 +40,6 @@ public class YamlGUI {
 
         @Comment("Material for empty slots - leave blank if you like ugly GUIs")
         private String filler = "GRAY_STAINED_GLASS_PANE";
-
-        @Comment("Deprecated: Now use slot value in kits. 1.2 will have this removed ")
-        private int[] kit_slots = {0};
 
         @Comment("Sound when clicked interactive item")
         private ClickSound clickSound = new ClickSound(false, "ui.button.click", 50);
